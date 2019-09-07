@@ -4,7 +4,7 @@ import { TextField, Input, HelperText } from 'preact-material-components/TextFie
 import 'preact-material-components/TextField/style.css';
 
 class Filters extends Component {
-	render() {
+	render({ filterPokemon }) {
 		return (
 			<div id="filters">
 				<form>
@@ -12,12 +12,8 @@ class Filters extends Component {
 						label="filter"
 			fullwidth
 						helperText={<HelperText>Help Me!</HelperText>}
-					>
-							<Input
-								id="query"
-								value={this.state.value}
-							/>
-			        </TextField>
+						onInput={e => filterPokemon(e.target.value)}
+					/>
 				</form>
 			</div>
 		);

@@ -6,6 +6,10 @@ const gmVersionURL = 'https://raw.githubusercontent.com/pokemongo-dev-contrib/po
 const gmURL = 'https://raw.githubusercontent.com/pokemongo-dev-contrib/pokemongo-game-master/master/versions/%s/GAME_MASTER.json';
 
 class Pokedex extends Component {
+	state = {
+		selected: []
+	}
+
 	componentDidMount() {
 		fetch(gmVersionURL).then(data => data.text().then(v => this.checkForUpdate(v)));
 	}
@@ -114,24 +118,54 @@ class Pokedex extends Component {
 
 		this.setState({
 			pokemon: parsedPokemon,
+			filtered: parsedPokemon,
 			moves: parsedMoves,
 			effectiveness: parsedEffectiveness
 		});
 	}
 
 	loadGamemaster = () => {
+		let p = JSON.parse(localStorage.getItem('pokemon'));
 		this.setState({
-			pokemon: JSON.parse(localStorage.getItem('pokemon')),
+			pokemon: p,
+			filtered: JSON.parse(localStorage.getItem('pokemon')),
 			moves: JSON.parse(localStorage.getItem('moves')),
 			effectiveness: JSON.parse(localStorage.getItem('effectiveness'))
 		});
 	}
 
-	render(_, { pokemon, moves }) {
+	filterPokemon = text => {
+		let filtered = {};
+
+		pokemonLoop:
+		for (let name in this.state.pokemon) {
+			let pokemon = this.state.pokemon[name],
+				conditions = text.split('&');
+
+			for (let condition of conditions) {
+				let clauses = condition.split(','),
+					passed = false;
+				for (let clause of clauses) {
+					clause = clause.toUpperCase();
+					if (pokemon.pokemonId.indexOf(clause) != -1) {
+						passed = true;
+						break;
+					}
+				}
+				if (!passed) {
+					continue pokemonLoop;
+				}
+			}
+			filtered[name] = pokemon;
+		}
+		this.setState({ filtered });
+	}
+
+	render(_, { moves, filtered }) {
 		return (
 			<div>
-				<Filters />
-				<PokemonList pokemon={pokemon} moves={moves} />
+				<Filters filterPokemon={this.filterPokemon} />
+				<PokemonList pokemon={filtered} moves={moves} />
 			</div>
 		);
 	}

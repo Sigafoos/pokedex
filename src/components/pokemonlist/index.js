@@ -2,18 +2,25 @@ import { h, Component } from 'preact';
 import Pokemon from '../pokemon';
 
 class PokemonList extends Component {
-	render({ pokemon }, _) {
+	render({ pokemon, moves }, _) {
 		let list = [];
 		for (let id in pokemon) {
-			let { pokemonId, type, type2 } = pokemon[id];
-			let types = [type, type2];
-			list.push({ id, types });
+			let p = pokemon[id];
+			let types = [p.type, p.type2];
+			p.types = types;
+			list.push(p);
 		}
-		console.log(list);
 
 		return (
 			<div id="pokemonlist">
-			{list.map(p => (<Pokemon id={p.id} types={p.types} />))}
+			{list.map(p => (
+				<Pokemon
+				id={p.pokemonId}
+				types={p.types}
+				moveList={moves}
+				quickMoves={p.quickMoves}
+				chargeMoves={p.cinematicMoves}
+				/>))}
 			</div>
 		);
 	}

@@ -30,10 +30,11 @@
   },
   "dependencies": {
     "preact": "^8.5.2",
-    "preact-compat": "^3.17.0",
+    "preact-compat": "^3.19.0",
     "preact-material-components": "^1.5.8",
     "preact-render-to-string": "^4.1.0",
-    "preact-router": "^2.5.7"
+    "preact-router": "^2.5.7",
+    "semantic-ui-react": "^0.88.0"
   },
   "jest": {
     "preset": "jest-preset-preact"
