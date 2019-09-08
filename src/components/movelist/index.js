@@ -5,18 +5,18 @@ class MoveList extends Component {
 	render({ list, quickMoves, chargeMoves }, _) {
 		return (
 			<div class="moves">
-				<h2>Moves</h2>
+				<h3>Moves</h3>
 
 				{quickMoves && (
 					<div class="quick">
-						<h3>Quick</h3>
+						<h4>Quick</h4>
 						{quickMoves.map(move => <QuickMove move={move} list={list} />)}
 					</div>
 				)}
 
 				{chargeMoves && (
 					<div class="charge">
-						<h3>Charge</h3>
+						<h4>Charge</h4>
 						{chargeMoves.map(move => <ChargeMove move={move} list={list} />)}
 					</div>
 				)}

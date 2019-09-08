@@ -1,8 +1,12 @@
 import { h, Component } from 'preact';
 import Pokemon from '../pokemon';
+import LayoutGrid from 'preact-material-components/LayoutGrid';
+import 'preact-material-components/LayoutGrid/style.css';
 
 class PokemonList extends Component {
-	render({ pokemon, moves }, _) {
+	render({ pokemon, moves, onChoose, chooseIcon }, _) {
+		if (!pokemon) return;
+
 		let list = [];
 		for (let id in pokemon) {
 			let p = pokemon[id];
@@ -13,14 +17,22 @@ class PokemonList extends Component {
 
 		return (
 			<div id="pokemonlist">
+				<LayoutGrid>
+					<LayoutGrid.Inner>
 			{list.map(p => (
-				<Pokemon
-				id={p.pokemonId}
-				types={p.types}
-				moveList={moves}
-				quickMoves={p.quickMoves}
-				chargeMoves={p.cinematicMoves}
-				/>))}
+				<LayoutGrid.Cell cols="3">
+					<Pokemon
+						id={p.pokemonId}
+						moveList={moves}
+						chargeMoves={p.cinematicMoves}
+						onChoose={onChoose}
+						chooseIcon={chooseIcon}
+						{...p}
+					/>
+				</LayoutGrid.Cell>
+			))}
+					</LayoutGrid.Inner>
+				</LayoutGrid>
 			</div>
 		);
 	}

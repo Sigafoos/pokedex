@@ -7,7 +7,8 @@ const gmURL = 'https://raw.githubusercontent.com/pokemongo-dev-contrib/pokemongo
 
 class Pokedex extends Component {
 	state = {
-		selected: []
+		filter: "",
+		selected: {}
 	}
 
 	componentDidMount() {
@@ -98,6 +99,10 @@ class Pokedex extends Component {
 							pokemonSettings.alolan = true;
 						}
 						pokemonSettings.dexNumber = Number(type.substr(1));
+						pokemonSettings.types = [pokemonSettings.type];
+						if (pokemonSettings.hasOwnProperty('type2')) {
+							pokemonSettings.types.push(pokemonSettings.type2);
+						}
 						pokemon[name] = pokemonSettings;
 					}
 			}
@@ -134,19 +139,138 @@ class Pokedex extends Component {
 		});
 	}
 
+	idRegexp = /^(\d*)(-?)(\d*)$/;
+
 	filterPokemon = text => {
+		this.setState({ filter: text });
+		this.calculateFiltered();
+	}
+
+	calculateFiltered = () => {
 		let filtered = {};
 
+		/*
+		 * For each Pokemon, split a,b&c into a,b and c (two conditions)
+		 * For each condition, if any clause (ie a and b) are true, pass
+		 * and break.
+		 * If any condition fails, the Pokemon is filtered out. Otherwise,
+		 * it passes.
+		 */
 		pokemonLoop:
 		for (let name in this.state.pokemon) {
 			let pokemon = this.state.pokemon[name],
-				conditions = text.split('&');
+				conditions = this.state.filter.split('&');
 
 			for (let condition of conditions) {
 				let clauses = condition.split(','),
 					passed = false;
+
+				clauseLoop:
 				for (let clause of clauses) {
+					let not = false;
+
+					if (clause.charAt(0) == '!') {
+						not = true;
+						clause = clause.substr(1);
+					}
+
+					// -151, 252-, etc
+					let dexMatches = this.idRegexp.exec(clause);
+					if (dexMatches && dexMatches[0] != "") {
+						let start = -1,
+							end = -1;
+
+						if (dexMatches[1] != "") {
+							start = Number(dexMatches[1]);
+						}
+						if (dexMatches[3] != "") {
+							end = Number(dexMatches[3]);
+						}
+
+						if (dexMatches[2] == "-") {
+							if (start == -1) {
+								start = 1;
+							}
+							if (end == -1) {
+								end = 9999;
+							}
+						}
+
+						// looking for a specific entry
+						if (dexMatches[2] == "") {
+							if (start == pokemon.dexNumber) {
+								if (not) {
+									continue;
+								}
+								passed = true;
+								break;
+							}
+
+							// if it didn't match but is a not, it's right!
+							if (not) {
+								passed = true;
+								break;
+							}
+							continue;
+						}
+
+						if (start != -1) {
+							if (pokemon.dexNumber < start && !not) {
+								continue;
+							}
+							if (pokemon.dexNumber > start && not) {
+								continue;
+							}
+						}
+
+						if (end != -1) {
+							if (pokemon.dexNumber > end && !not) {
+								continue;
+							}
+							if (pokemon.dexNumber < end && not) {
+								continue;
+							}
+						}
+
+						passed = true;
+						break;
+					}
+
 					clause = clause.toUpperCase();
+
+					if (clause == 'ALOLA') {
+						if (not) {
+							if (pokemon.alolan) {
+								continue;
+							}
+							passed = true;
+							break;
+						}
+
+						if (pokemon.alolan) {
+							passed = true;
+							break;
+						}
+						continue;
+					}
+
+					// TODO: flying&!fire correctly excludes zard
+					//       fire&!flying does not
+					for (let type of pokemon.types) {
+						let parsedType = 'POKEMON_TYPE_' + clause;
+						if (type == parsedType) {
+							if (not) {
+								continue clauseLoop;
+							}
+							passed = true;
+							break clauseLoop;
+						} else if (not && this.state.effectiveness.hasOwnProperty(parsedType)) {
+							passed = true;
+							break clauseLoop;
+						}
+					}
+
+					// search by name (doesn't handle not)
 					if (pokemon.pokemonId.indexOf(clause) != -1) {
 						passed = true;
 						break;
@@ -161,11 +285,26 @@ class Pokedex extends Component {
 		this.setState({ filtered });
 	}
 
-	render(_, { moves, filtered }) {
+	hoist = (id) => {
+		let { selected, filtered, pokemon } = this.state;
+		selected[id] = pokemon[id];
+		delete filtered[id];
+		this.setState({ selected, filtered });
+	}
+
+	unhoist = (id) => {
+		let { selected } = this.state;
+		delete selected[id];
+		this.setState({ selected });
+		this.calculateFiltered();
+	}
+
+	render(_, { moves, filtered, selected }) {
 		return (
 			<div>
+				<PokemonList pokemon={selected} moves={moves} onChoose={this.unhoist} chooseIcon="remove_circle" />
 				<Filters filterPokemon={this.filterPokemon} />
-				<PokemonList pokemon={filtered} moves={moves} />
+				<PokemonList pokemon={filtered} moves={moves} onChoose={this.hoist} chooseIcon="add_circle" />
 			</div>
 		);
 	}
