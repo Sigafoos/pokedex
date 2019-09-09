@@ -2423,6 +2423,10 @@ var pokemonlist_PokemonList = function (_Component) {
 }(preact_min["Component"]);
 
 /* harmony default export */ var pokemonlist = (pokemonlist_PokemonList);
+// EXTERNAL MODULE: ./components/effectivenessmatrix/style.css
+var effectivenessmatrix_style = __webpack_require__("nYpU");
+var effectivenessmatrix_style_default = /*#__PURE__*/__webpack_require__.n(effectivenessmatrix_style);
+
 // CONCATENATED MODULE: ./components/effectiveness/index.js
 
 
@@ -2468,6 +2472,7 @@ function effectivenessmatrix__classCallCheck(instance, Constructor) { if (!(inst
 function effectivenessmatrix__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function effectivenessmatrix__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -2580,7 +2585,7 @@ var effectivenessmatrix_EffectivenessMatrix = function (_Component) {
 					this.order.map(function (type) {
 						return Object(preact_min["h"])(
 							LayoutGrid_default.a.Cell,
-							{ cols: '4', phoneCols: '1' },
+							{ cols: '4', phoneCols: '4', className: effectivenessmatrix_style_default.a.effectiveness },
 							Object(preact_min["h"])(typeicon, { type: type }),
 							Object(preact_min["h"])(components_effectiveness, { values: defender[type] })
 						);
@@ -2733,10 +2738,10 @@ var pokedex_Pokedex = function (_Component) {
 						var pokemonSettings = entry.pokemonSettings;
 
 						if (pokemonSettings) {
-							var name = pokemonSettings.pokemonId;
+							var _name = pokemonSettings.pokemonId;
 							pokemonSettings.alolan = false;
 							if (tid.endsWith('ALOLA')) {
-								name = tid.substr(14);
+								_name = tid.substr(14);
 								pokemonSettings.alolan = true;
 							}
 							pokemonSettings.dexNumber = Number(type.substr(1));
@@ -2744,7 +2749,7 @@ var pokedex_Pokedex = function (_Component) {
 							if (pokemonSettings.hasOwnProperty('type2')) {
 								pokemonSettings.types.push(pokemonSettings.type2);
 							}
-							pokemon[name] = pokemonSettings;
+							pokemon[_name] = pokemonSettings;
 						}
 				}
 			}
@@ -2762,18 +2767,33 @@ var pokedex_Pokedex = function (_Component) {
 			localStorage.setItem('effectiveness', parsedEffectiveness);
 			localStorage.setItem('version', _this.state.version);
 
+			var filtered = pokemon;
+			var selected = JSON.parse(localStorage.getItem('selected')) || {};
+			for (var name in selected) {
+				delete filtered[name];
+			}
+
 			_this.setState({
 				pokemon: pokemon,
 				filtered: pokemon,
 				moves: moves,
 				effectiveness: effectiveness,
+				selected: selected,
 				loading: false
 			});
 		}, _this.loadGamemaster = function () {
-			var p = JSON.parse(localStorage.getItem('pokemon'));
+			var p = JSON.parse(localStorage.getItem('pokemon')),
+			    selected = JSON.parse(localStorage.getItem('selected')) || {};
+			var filtered = p;
+
+			for (var name in selected) {
+				delete filtered[name];
+			}
+
 			_this.setState({
 				pokemon: p,
 				filtered: p,
+				selected: selected,
 				moves: JSON.parse(localStorage.getItem('moves')),
 				effectiveness: JSON.parse(localStorage.getItem('effectiveness')),
 				loading: false
@@ -2964,11 +2984,13 @@ var pokedex_Pokedex = function (_Component) {
 
 			selected[id] = pokemon[id];
 			delete filtered[id];
+			localStorage.setItem('selected', JSON.stringify(selected));
 			_this.setState({ selected: selected, filtered: filtered });
 		}, _this.unhoist = function (id) {
 			var selected = _this.state.selected;
 
 			delete selected[id];
+			localStorage.setItem('selected', JSON.stringify(selected));
 			_this.setState({ selected: selected });
 			_this.calculateFiltered();
 		}, _temp), pokedex__possibleConstructorReturn(_this, _ret);
@@ -3002,12 +3024,12 @@ var pokedex_Pokedex = function (_Component) {
 					null,
 					Object(preact_min["h"])(
 						LayoutGrid_default.a.Cell,
-						{ cols: '3', phonecols: '4' },
+						{ cols: '2', phoneCols: '4' },
 						Object(preact_min["h"])(effectivenessmatrix, { pokemon: selected, effectiveness: effectiveness })
 					),
 					Object(preact_min["h"])(
 						LayoutGrid_default.a.Cell,
-						{ cols: '9', phonecols: '4' },
+						{ cols: '10', phoneCols: '4' },
 						Object.keys(selected).length > 0 && Object(preact_min["h"])(pokemonlist, { pokemon: selected, moves: moves, onChoose: this.unhoist, chooseIcon: 'remove_circle' }),
 						Object(preact_min["h"])(filters, { filterPokemon: this.filterPokemon }),
 						loading && _ref6 || Object(preact_min["h"])(pokemonlist, { pokemon: filtered, moves: moves, onChoose: this.hoist, chooseIcon: 'add_circle' })
@@ -12410,6 +12432,14 @@ function getNormalizedEventCoords(ev, pageOffset, clientRect) {
 }
 
 
+
+/***/ }),
+
+/***/ "nYpU":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"effectiveness":"effectiveness__1qp7Z"};
 
 /***/ }),
 
