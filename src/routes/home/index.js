@@ -4,8 +4,6 @@ import Pokedex from '../../components/pokedex';
 
 const Home = () => (
 	<div class={style.home}>
-		<h1>Pokedex</h1>
-
 		<Pokedex />
 	</div>
 );

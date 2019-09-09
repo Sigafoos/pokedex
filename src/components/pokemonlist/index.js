@@ -5,8 +5,6 @@ import 'preact-material-components/LayoutGrid/style.css';
 
 class PokemonList extends Component {
 	render({ pokemon, moves, onChoose, chooseIcon }, _) {
-		if (!pokemon) return;
-
 		let list = [];
 		for (let id in pokemon) {
 			let p = pokemon[id];
@@ -20,7 +18,7 @@ class PokemonList extends Component {
 				<LayoutGrid>
 					<LayoutGrid.Inner>
 			{list.map(p => (
-				<LayoutGrid.Cell cols="3">
+				<LayoutGrid.Cell cols="3" phoneCols="4">
 					<Pokemon
 						id={p.pokemonId}
 						moveList={moves}

@@ -1,6 +1,9 @@
 import { h, Component } from 'preact';
 import Filters from '../filters';
 import PokemonList from '../pokemonlist';
+import EffectivenessMatrix from '../effectivenessmatrix';
+import LayoutGrid from 'preact-material-components/LayoutGrid';
+import 'preact-material-components/LayoutGrid/style.css';
 
 const gmVersionURL = 'https://raw.githubusercontent.com/pokemongo-dev-contrib/pokemongo-game-master/master/versions/latest-version.txt';
 const gmURL = 'https://raw.githubusercontent.com/pokemongo-dev-contrib/pokemongo-game-master/master/versions/%s/GAME_MASTER.json';
@@ -299,12 +302,22 @@ class Pokedex extends Component {
 		this.calculateFiltered();
 	}
 
-	render(_, { moves, filtered, selected }) {
+	render(_, { moves, effectiveness, filtered, selected }) {
 		return (
 			<div>
-				<PokemonList pokemon={selected} moves={moves} onChoose={this.unhoist} chooseIcon="remove_circle" />
-				<Filters filterPokemon={this.filterPokemon} />
-				<PokemonList pokemon={filtered} moves={moves} onChoose={this.hoist} chooseIcon="add_circle" />
+				<LayoutGrid>
+					<LayoutGrid.Inner>
+						<LayoutGrid.Cell cols="3" phonecols="4">
+							<EffectivenessMatrix pokemon={selected} effectiveness={effectiveness} />
+						</LayoutGrid.Cell>
+
+						<LayoutGrid.Cell cols="9" phonecols="4">
+							{Object.keys(selected).length > 0 && (<PokemonList pokemon={selected} moves={moves} onChoose={this.unhoist} chooseIcon="remove_circle" />)}
+							<Filters filterPokemon={this.filterPokemon} />
+							<PokemonList pokemon={filtered} moves={moves} onChoose={this.hoist} chooseIcon="add_circle" />
+						</LayoutGrid.Cell>
+					</LayoutGrid.Inner>
+				</LayoutGrid>
 			</div>
 		);
 	}
