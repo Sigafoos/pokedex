@@ -2,7 +2,6 @@ import { h } from 'preact';
 
 const Effectiveness = ({ values }) => {
 	let average = 1;
-	console.log(values);
 	if (values.length) {
 		let total = 0;
 		for (let v of values) {

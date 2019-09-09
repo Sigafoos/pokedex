@@ -38,7 +38,8 @@
     "preact-material-components": "^1.5.8",
     "preact-render-to-string": "^4.1.0",
     "preact-router": "^2.5.7",
-    "semantic-ui-react": "^0.88.0"
+    "semantic-ui-react": "^0.88.0",
+    "styled-loaders": "^0.3.0"
   },
   "jest": {
     "preset": "jest-preset-preact"

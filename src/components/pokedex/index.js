@@ -4,12 +4,14 @@ import PokemonList from '../pokemonlist';
 import EffectivenessMatrix from '../effectivenessmatrix';
 import LayoutGrid from 'preact-material-components/LayoutGrid';
 import 'preact-material-components/LayoutGrid/style.css';
+import { Circular } from 'styled-loaders'
 
 const gmVersionURL = 'https://raw.githubusercontent.com/pokemongo-dev-contrib/pokemongo-game-master/master/versions/latest-version.txt';
 const gmURL = 'https://raw.githubusercontent.com/pokemongo-dev-contrib/pokemongo-game-master/master/versions/%s/GAME_MASTER.json';
 
 class Pokedex extends Component {
 	state = {
+		loading: true,
 		filter: "",
 		selected: {}
 	}
@@ -125,10 +127,11 @@ class Pokedex extends Component {
 		localStorage.setItem('version', this.state.version);
 
 		this.setState({
-			pokemon: parsedPokemon,
-			filtered: parsedPokemon,
-			moves: parsedMoves,
-			effectiveness: parsedEffectiveness
+			pokemon: pokemon,
+			filtered: pokemon,
+			moves: moves,
+			effectiveness: effectiveness,
+			loading: false
 		});
 	}
 
@@ -136,9 +139,10 @@ class Pokedex extends Component {
 		let p = JSON.parse(localStorage.getItem('pokemon'));
 		this.setState({
 			pokemon: p,
-			filtered: JSON.parse(localStorage.getItem('pokemon')),
+			filtered: p,
 			moves: JSON.parse(localStorage.getItem('moves')),
-			effectiveness: JSON.parse(localStorage.getItem('effectiveness'))
+			effectiveness: JSON.parse(localStorage.getItem('effectiveness')),
+			loading: false
 		});
 	}
 
@@ -302,7 +306,7 @@ class Pokedex extends Component {
 		this.calculateFiltered();
 	}
 
-	render(_, { moves, effectiveness, filtered, selected }) {
+	render(_, { moves, effectiveness, filtered, selected, loading }) {
 		return (
 			<div>
 				<LayoutGrid>
@@ -314,7 +318,8 @@ class Pokedex extends Component {
 						<LayoutGrid.Cell cols="9" phonecols="4">
 							{Object.keys(selected).length > 0 && (<PokemonList pokemon={selected} moves={moves} onChoose={this.unhoist} chooseIcon="remove_circle" />)}
 							<Filters filterPokemon={this.filterPokemon} />
-							<PokemonList pokemon={filtered} moves={moves} onChoose={this.hoist} chooseIcon="add_circle" />
+							{loading && (<Circular />)
+								|| (<PokemonList pokemon={filtered} moves={moves} onChoose={this.hoist} chooseIcon="add_circle" />)}
 						</LayoutGrid.Cell>
 					</LayoutGrid.Inner>
 				</LayoutGrid>
