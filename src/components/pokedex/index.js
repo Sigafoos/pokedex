@@ -126,20 +126,35 @@ class Pokedex extends Component {
 		localStorage.setItem('effectiveness', parsedEffectiveness);
 		localStorage.setItem('version', this.state.version);
 
+		let filtered = pokemon;
+		let selected = JSON.parse(localStorage.getItem('selected')) || {};
+		for (let name in selected) {
+			delete filtered[name];
+		}
+
 		this.setState({
 			pokemon: pokemon,
 			filtered: pokemon,
 			moves: moves,
 			effectiveness: effectiveness,
+			selected: selected,
 			loading: false
 		});
 	}
 
 	loadGamemaster = () => {
-		let p = JSON.parse(localStorage.getItem('pokemon'));
+		let p = JSON.parse(localStorage.getItem('pokemon')),
+			selected = JSON.parse(localStorage.getItem('selected')) || {};
+		let filtered = p;
+
+		for (let name in selected) {
+			delete filtered[name];
+		}
+
 		this.setState({
 			pokemon: p,
 			filtered: p,
+			selected: selected,
 			moves: JSON.parse(localStorage.getItem('moves')),
 			effectiveness: JSON.parse(localStorage.getItem('effectiveness')),
 			loading: false
@@ -296,12 +311,14 @@ class Pokedex extends Component {
 		let { selected, filtered, pokemon } = this.state;
 		selected[id] = pokemon[id];
 		delete filtered[id];
+		localStorage.setItem('selected', JSON.stringify(selected));
 		this.setState({ selected, filtered });
 	}
 
 	unhoist = (id) => {
 		let { selected } = this.state;
 		delete selected[id];
+		localStorage.setItem('selected', JSON.stringify(selected));
 		this.setState({ selected });
 		this.calculateFiltered();
 	}
@@ -311,11 +328,11 @@ class Pokedex extends Component {
 			<div>
 				<LayoutGrid>
 					<LayoutGrid.Inner>
-						<LayoutGrid.Cell cols="3" phonecols="4">
+						<LayoutGrid.Cell cols="2" phoneCols="4">
 							<EffectivenessMatrix pokemon={selected} effectiveness={effectiveness} />
 						</LayoutGrid.Cell>
 
-						<LayoutGrid.Cell cols="9" phonecols="4">
+						<LayoutGrid.Cell cols="10" phoneCols="4">
 							{Object.keys(selected).length > 0 && (<PokemonList pokemon={selected} moves={moves} onChoose={this.unhoist} chooseIcon="remove_circle" />)}
 							<Filters filterPokemon={this.filterPokemon} />
 							{loading && (<Circular />)
