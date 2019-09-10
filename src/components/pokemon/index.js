@@ -18,7 +18,7 @@ const Pokemon = ({ id, types, moveList, quickMoves, stats, chargeMoves, alolan, 
 
 		<Stats stats={stats} />
 
-		<MoveList quickMoves={quickMoves} chargeMoves={chargeMoves} list={chargeMoves} />
+		<MoveList quickMoves={quickMoves} chargeMoves={chargeMoves} list={moveList} />
 
 		<Card.Actions>
 			<Card.ActionIcons>
