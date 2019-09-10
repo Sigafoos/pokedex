@@ -18,7 +18,7 @@ class PokemonList extends Component {
 				<LayoutGrid>
 					<LayoutGrid.Inner>
 			{list.map(p => (
-				<LayoutGrid.Cell cols="3" phoneCols="4">
+				<LayoutGrid.Cell desktopCols="3" tabletCols="4" phoneCols="4">
 					<Pokemon
 						id={p.pokemonId}
 						moveList={moves}

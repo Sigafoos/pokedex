@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import style from './style';
 import TypeIcon from '../typeicon';
 import Effectiveness from '../effectiveness';
 import LayoutGrid from 'preact-material-components/LayoutGrid';
@@ -91,7 +92,7 @@ class EffectivenessMatrix extends Component {
 				<LayoutGrid>
 					<LayoutGrid.Inner>
 						{this.order.map(type => (
-							<LayoutGrid.Cell cols="4" phoneCols="1">
+							<LayoutGrid.Cell desktopCols="4" tabletCols="4" phoneCols="1" className={style.effectiveness}>
 								<TypeIcon type={type} />
 								<Effectiveness values={defender[type]} />
 							</LayoutGrid.Cell>

@@ -9,15 +9,15 @@ const Stats = ({ stats }) => (
 	<div class="stats">
 	<LayoutGrid>
 		<LayoutGrid.Inner>
-			<LayoutGrid.Cell className={style.stat} cols="4">
+			<LayoutGrid.Cell className={style.stat} desktopCols="4" phoneCols="1">
 				<div>{stats.baseAttack}</div>
 				<Typography caption>attack</Typography>
 			</LayoutGrid.Cell>
-			<LayoutGrid.Cell className={style.stat}  cols="4">
+			<LayoutGrid.Cell className={style.stat} desktopCols="4" phoneCols="1">
 				<div>{stats.baseDefense}</div>
 				<Typography caption>defense</Typography>
 			</LayoutGrid.Cell>
-			<LayoutGrid.Cell className={style.stat}  cols="4">
+			<LayoutGrid.Cell className={style.stat} desktopCols="4" phoneCols="1">
 				<div>{stats.baseStamina}</div>
 				<Typography caption>stamina</Typography>
 			</LayoutGrid.Cell>
