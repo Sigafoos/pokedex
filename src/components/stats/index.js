@@ -1,31 +1,28 @@
 import { h } from 'preact';
 import style from './style';
-import List from 'preact-material-components/List';
-import 'preact-material-components/List/style.css';
+import LayoutGrid from 'preact-material-components/LayoutGrid';
+import 'preact-material-components/LayoutGrid/style.css';
+import Typography from 'preact-material-components/Typography';
+import 'preact-material-components/Typography/style.css';
 
 const Stats = ({ stats }) => (
-	<div class={style.stats}>
-	<h3>Base stats</h3>
-	<List dense twoline>
-		<List.Item>
-			<List.TextContainer>
-				<List.PrimaryText>{stats.baseAttack}</List.PrimaryText>
-				<List.SecondaryText>Attack</List.SecondaryText>
-			</List.TextContainer>
-		</List.Item>
-		<List.Item>
-			<List.TextContainer>
-				<List.PrimaryText>{stats.baseDefense}</List.PrimaryText>
-				<List.SecondaryText>Defense</List.SecondaryText>
-			</List.TextContainer>
-		</List.Item>
-		<List.Item>
-			<List.TextContainer>
-				<List.PrimaryText>{stats.baseStamina}</List.PrimaryText>
-				<List.SecondaryText>Stamina</List.SecondaryText>
-			</List.TextContainer>
-		</List.Item>
-	</List>
+	<div class="stats">
+	<LayoutGrid>
+		<LayoutGrid.Inner>
+			<LayoutGrid.Cell className={style.stat} cols="4">
+				<div>{stats.baseAttack}</div>
+				<Typography caption>attack</Typography>
+			</LayoutGrid.Cell>
+			<LayoutGrid.Cell className={style.stat}  cols="4">
+				<div>{stats.baseDefense}</div>
+				<Typography caption>defense</Typography>
+			</LayoutGrid.Cell>
+			<LayoutGrid.Cell className={style.stat}  cols="4">
+				<div>{stats.baseStamina}</div>
+				<Typography caption>stamina</Typography>
+			</LayoutGrid.Cell>
+		</LayoutGrid.Inner>
+	</LayoutGrid>
 	</div>
 );
 
