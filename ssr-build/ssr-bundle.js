@@ -1269,359 +1269,6 @@ module.exports = _assertThisInitialized;
 
 /***/ }),
 
-/***/ "E7XR":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _interopRequireDefault = __webpack_require__("SpGf");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.List = exports.ListGroupHeader = exports.ListGroup = exports.ListSecondaryText = exports.ListPrimaryText = exports.ListTextContainer = exports.ListDivider = exports.ListItemMeta = exports.ListItemGraphic = exports.ListLinkItem = exports.ListItem = void 0;
-
-var _classCallCheck2 = _interopRequireDefault(__webpack_require__("0fcM"));
-
-var _createClass2 = _interopRequireDefault(__webpack_require__("P8NW"));
-
-var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__("0421"));
-
-var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__("UJE0"));
-
-var _inherits2 = _interopRequireDefault(__webpack_require__("d4H2"));
-
-var _preact = __webpack_require__("KM04");
-
-var _MaterialComponent9 = _interopRequireDefault(__webpack_require__("uc5p"));
-
-var _Icon = _interopRequireDefault(__webpack_require__("MeGi"));
-
-var ListItem =
-/*#__PURE__*/
-function (_MaterialComponent) {
-  (0, _inherits2.default)(ListItem, _MaterialComponent);
-
-  function ListItem() {
-    var _this;
-
-    (0, _classCallCheck2.default)(this, ListItem);
-    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ListItem).apply(this, arguments));
-    _this.componentName = 'list-item';
-    _this.mdcProps = [];
-    return _this;
-  }
-
-  (0, _createClass2.default)(ListItem, [{
-    key: "materialDom",
-    value: function materialDom(props) {
-      return (0, _preact.h)("li", _extends({
-        role: "option"
-      }, props, {
-        ref: this.setControlRef
-      }), props.children);
-    }
-  }]);
-  return ListItem;
-}(_MaterialComponent9.default);
-
-exports.ListItem = ListItem;
-
-var ListLinkItem =
-/*#__PURE__*/
-function (_MaterialComponent2) {
-  (0, _inherits2.default)(ListLinkItem, _MaterialComponent2);
-
-  function ListLinkItem() {
-    var _this2;
-
-    (0, _classCallCheck2.default)(this, ListLinkItem);
-    _this2 = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ListLinkItem).apply(this, arguments));
-    _this2.componentName = 'list-item';
-    _this2.mdcProps = [];
-    return _this2;
-  }
-
-  (0, _createClass2.default)(ListLinkItem, [{
-    key: "materialDom",
-    value: function materialDom(props) {
-      return (0, _preact.h)("a", _extends({
-        role: "option"
-      }, props, {
-        ref: this.setControlRef
-      }), props.children);
-    }
-  }]);
-  return ListLinkItem;
-}(_MaterialComponent9.default);
-
-exports.ListLinkItem = ListLinkItem;
-
-var ListItemGraphic =
-/*#__PURE__*/
-function (_MaterialComponent3) {
-  (0, _inherits2.default)(ListItemGraphic, _MaterialComponent3);
-
-  function ListItemGraphic() {
-    var _this3;
-
-    (0, _classCallCheck2.default)(this, ListItemGraphic);
-    _this3 = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ListItemGraphic).apply(this, arguments));
-    _this3.componentName = 'list-item__graphic';
-    _this3.mdcProps = [];
-    return _this3;
-  }
-
-  (0, _createClass2.default)(ListItemGraphic, [{
-    key: "materialDom",
-    value: function materialDom(props) {
-      return (0, _preact.h)("span", _extends({}, props, {
-        ref: this.setControlRef,
-        role: "presentation"
-      }), (0, _preact.h)(_Icon.default, {
-        "aria-hidden": "true"
-      }, props.children));
-    }
-  }]);
-  return ListItemGraphic;
-}(_MaterialComponent9.default);
-
-exports.ListItemGraphic = ListItemGraphic;
-
-var ListItemMeta =
-/*#__PURE__*/
-function (_ListItemGraphic) {
-  (0, _inherits2.default)(ListItemMeta, _ListItemGraphic);
-
-  function ListItemMeta() {
-    var _this4;
-
-    (0, _classCallCheck2.default)(this, ListItemMeta);
-    _this4 = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ListItemMeta).apply(this, arguments));
-    _this4.componentName = 'list-item__meta';
-    return _this4;
-  }
-
-  return ListItemMeta;
-}(ListItemGraphic);
-
-exports.ListItemMeta = ListItemMeta;
-
-var ListDivider =
-/*#__PURE__*/
-function (_MaterialComponent4) {
-  (0, _inherits2.default)(ListDivider, _MaterialComponent4);
-
-  function ListDivider() {
-    var _this5;
-
-    (0, _classCallCheck2.default)(this, ListDivider);
-    _this5 = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ListDivider).apply(this, arguments));
-    _this5.componentName = 'list-divider';
-    _this5.mdcProps = ['inset'];
-    return _this5;
-  }
-
-  (0, _createClass2.default)(ListDivider, [{
-    key: "materialDom",
-    value: function materialDom(props) {
-      return (0, _preact.h)("li", _extends({
-        role: "separator"
-      }, props, {
-        ref: this.setControlRef
-      }));
-    }
-  }]);
-  return ListDivider;
-}(_MaterialComponent9.default);
-
-exports.ListDivider = ListDivider;
-
-var ListTextContainer =
-/*#__PURE__*/
-function (_MaterialComponent5) {
-  (0, _inherits2.default)(ListTextContainer, _MaterialComponent5);
-
-  function ListTextContainer() {
-    var _this6;
-
-    (0, _classCallCheck2.default)(this, ListTextContainer);
-    _this6 = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ListTextContainer).apply(this, arguments));
-    _this6.componentName = 'list-item__text';
-    _this6.mdcProps = [];
-    return _this6;
-  }
-
-  (0, _createClass2.default)(ListTextContainer, [{
-    key: "materialDom",
-    value: function materialDom(props) {
-      return (0, _preact.h)("span", _extends({}, props, {
-        ref: this.setControlRef
-      }), props.children);
-    }
-  }]);
-  return ListTextContainer;
-}(_MaterialComponent9.default);
-
-exports.ListTextContainer = ListTextContainer;
-
-var ListPrimaryText =
-/*#__PURE__*/
-function (_ListTextContainer) {
-  (0, _inherits2.default)(ListPrimaryText, _ListTextContainer);
-
-  function ListPrimaryText() {
-    var _this7;
-
-    (0, _classCallCheck2.default)(this, ListPrimaryText);
-    _this7 = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ListPrimaryText).apply(this, arguments));
-    _this7.componentName = 'list-item__primary-text';
-    return _this7;
-  }
-
-  return ListPrimaryText;
-}(ListTextContainer);
-
-exports.ListPrimaryText = ListPrimaryText;
-
-var ListSecondaryText =
-/*#__PURE__*/
-function (_ListTextContainer2) {
-  (0, _inherits2.default)(ListSecondaryText, _ListTextContainer2);
-
-  function ListSecondaryText() {
-    var _this8;
-
-    (0, _classCallCheck2.default)(this, ListSecondaryText);
-    _this8 = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ListSecondaryText).apply(this, arguments));
-    _this8.componentName = 'list-item__secondary-text';
-    return _this8;
-  }
-
-  return ListSecondaryText;
-}(ListTextContainer);
-
-exports.ListSecondaryText = ListSecondaryText;
-
-var ListGroup =
-/*#__PURE__*/
-function (_MaterialComponent6) {
-  (0, _inherits2.default)(ListGroup, _MaterialComponent6);
-
-  function ListGroup() {
-    var _this9;
-
-    (0, _classCallCheck2.default)(this, ListGroup);
-    _this9 = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ListGroup).apply(this, arguments));
-    _this9.componentName = 'list-group';
-    _this9.mdcProps = [];
-    return _this9;
-  }
-
-  (0, _createClass2.default)(ListGroup, [{
-    key: "materialDom",
-    value: function materialDom(props) {
-      return (0, _preact.h)("div", _extends({}, props), this.props.children);
-    }
-  }]);
-  return ListGroup;
-}(_MaterialComponent9.default);
-
-exports.ListGroup = ListGroup;
-
-var ListGroupHeader =
-/*#__PURE__*/
-function (_MaterialComponent7) {
-  (0, _inherits2.default)(ListGroupHeader, _MaterialComponent7);
-
-  function ListGroupHeader() {
-    var _this10;
-
-    (0, _classCallCheck2.default)(this, ListGroupHeader);
-    _this10 = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ListGroupHeader).apply(this, arguments));
-    _this10.componentName = 'list-group__subheader';
-    _this10.mdcProps = [];
-    return _this10;
-  }
-
-  (0, _createClass2.default)(ListGroupHeader, [{
-    key: "materialDom",
-    value: function materialDom(props) {
-      return (0, _preact.h)("h3", _extends({}, props, {
-        ref: this.setControlRef
-      }), props.children);
-    }
-  }]);
-  return ListGroupHeader;
-}(_MaterialComponent9.default);
-
-exports.ListGroupHeader = ListGroupHeader;
-
-var List =
-/*#__PURE__*/
-function (_MaterialComponent8) {
-  (0, _inherits2.default)(List, _MaterialComponent8);
-
-  function List() {
-    var _this11;
-
-    (0, _classCallCheck2.default)(this, List);
-    _this11 = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(List).apply(this, arguments));
-    _this11.componentName = 'list';
-    _this11.mdcProps = ['dense', 'two-line', 'avatar-list'];
-    return _this11;
-  }
-
-  (0, _createClass2.default)(List, [{
-    key: "materialDom",
-    value: function materialDom(props) {
-      if (props.interactive) {
-        return (0, _preact.h)("nav", _extends({
-          ref: this.setControlRef
-        }, props), props.children);
-      }
-
-      return (0, _preact.h)("ul", _extends({}, props, {
-        ref: this.setControlRef
-      }), props.children);
-    }
-  }]);
-  return List;
-}(_MaterialComponent9.default);
-
-exports.List = List;
-
-var default_1 =
-/*#__PURE__*/
-function (_List) {
-  (0, _inherits2.default)(default_1, _List);
-
-  function default_1() {
-    (0, _classCallCheck2.default)(this, default_1);
-    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(default_1).apply(this, arguments));
-  }
-
-  return default_1;
-}(List);
-
-exports.default = default_1;
-default_1.Item = ListItem;
-default_1.LinkItem = ListLinkItem;
-default_1.ItemGraphic = ListItemGraphic;
-default_1.ItemMeta = ListItemMeta;
-default_1.Divider = ListDivider;
-default_1.TextContainer = ListTextContainer;
-default_1.PrimaryText = ListPrimaryText;
-default_1.SecondaryText = ListSecondaryText;
-default_1.Group = ListGroup;
-default_1.GroupHeader = ListGroupHeader;
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
 /***/ "EQDb":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2042,14 +1689,52 @@ var filters_Filters = function (_Component) {
 var pokemon_style = __webpack_require__("sSiY");
 var pokemon_style_default = /*#__PURE__*/__webpack_require__.n(pokemon_style);
 
-// EXTERNAL MODULE: ../node_modules/preact-material-components/Typography/index.js
-var Typography = __webpack_require__("Ym6P");
-var Typography_default = /*#__PURE__*/__webpack_require__.n(Typography);
+// EXTERNAL MODULE: ./components/typeicon/style.css
+var typeicon_style = __webpack_require__("ziGg");
+var typeicon_style_default = /*#__PURE__*/__webpack_require__.n(typeicon_style);
 
-// EXTERNAL MODULE: ../node_modules/preact-material-components/Typography/style.css
-var Typography_style = __webpack_require__("3onB");
-var Typography_style_default = /*#__PURE__*/__webpack_require__.n(Typography_style);
+// CONCATENATED MODULE: ./components/typeicon/index.js
 
+
+
+
+var typeicon_TypeIcon = function TypeIcon(_ref) {
+	var type = _ref.type;
+
+	if (!type) return;
+
+	var name = type.substr(13);
+	return Object(preact_min["h"])(
+		'span',
+		{ className: typeicon_style_default.a.type + ' ' + typeicon_style_default.a[type] },
+		name
+	);
+};
+
+/* harmony default export */ var typeicon = (typeicon_TypeIcon);
+// CONCATENATED MODULE: ./utilities/titlecase.js
+var titleCase = function titleCase(text) {
+	var replaced = [];
+	for (var _iterator = text.split(' '), _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+		var _ref;
+
+		if (_isArray) {
+			if (_i >= _iterator.length) break;
+			_ref = _iterator[_i++];
+		} else {
+			_i = _iterator.next();
+			if (_i.done) break;
+			_ref = _i.value;
+		}
+
+		var word = _ref;
+
+		replaced.push(word.charAt(0).toUpperCase() + word.substr(1).toLowerCase());
+	}
+	return replaced.join(' ');
+};
+
+/* harmony default export */ var titlecase = (titleCase);
 // CONCATENATED MODULE: ./components/moves/index.js
 
 
@@ -2057,25 +1742,71 @@ var Typography_style_default = /*#__PURE__*/__webpack_require__.n(Typography_sty
 
 
 var moves_QuickMove = function QuickMove(_ref) {
-	var move = _ref.move,
-	    list = _ref.list;
+	var move = _ref.move;
+
+	var displayName = moves_format(move.uniqueId),
+	    power = move.power,
+	    energy = move.energyDelta,
+	    turns = 1;
+	if (move.hasOwnProperty('durationTurns')) {
+		turns = Number(move.durationTurns) + 1;
+	}
+
 	return Object(preact_min["h"])(
-		'p',
+		'div',
 		null,
-		move
+		Object(preact_min["h"])(typeicon, { type: move.type }),
+		displayName,
+		': ',
+		power,
+		' / ',
+		energy,
+		' / ',
+		turns,
+		' / ',
+		Math.round(power / turns * 100) / 100,
+		' / ',
+		Math.round(energy / turns * 100) / 100
 	);
 };
 
 var moves_ChargeMove = function ChargeMove(_ref2) {
-	var move = _ref2.move,
-	    list = _ref2.list;
+	var move = _ref2.move;
+
+	var displayName = moves_format(move.uniqueId),
+	    power = move.power,
+	    energy = Math.abs(move.energyDelta);
+
 	return Object(preact_min["h"])(
-		'p',
+		'div',
 		null,
-		move
+		Object(preact_min["h"])(typeicon, { type: move.type }),
+		displayName,
+		': ',
+		power,
+		' / ',
+		energy,
+		' / ',
+		Math.round(power / energy * 100) / 100
 	);
 };
 
+var moves_format = function format(move) {
+	if (move.endsWith('_FAST')) {
+		move = move.substr(0, move.length - 5);
+	}
+	move = move.replace('_', ' ');
+	return titlecase(move);
+};
+
+
+// EXTERNAL MODULE: ../node_modules/preact-material-components/Typography/index.js
+var Typography = __webpack_require__("Ym6P");
+var Typography_default = /*#__PURE__*/__webpack_require__.n(Typography);
+
+// EXTERNAL MODULE: ../node_modules/preact-material-components/Typography/style.css
+var Typography_style = __webpack_require__("3onB");
+var Typography_style_default = /*#__PURE__*/__webpack_require__.n(Typography_style);
 
 // CONCATENATED MODULE: ./components/movelist/index.js
 
@@ -2085,6 +1816,8 @@ function movelist__classCallCheck(instance, Constructor) { if (!(instance instan
 function movelist__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function movelist__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
 
 
 
@@ -2102,9 +1835,21 @@ var _ref3 = Object(preact_min["h"])(
 );
 
 var _ref4 = Object(preact_min["h"])(
+	Typography_default.a,
+	{ caption: true },
+	'damage / energy / turns / DPT / EPT'
+);
+
+var movelist__ref5 = Object(preact_min["h"])(
 	'h4',
 	null,
 	'Charge'
+);
+
+var _ref6 = Object(preact_min["h"])(
+	Typography_default.a,
+	{ caption: true },
+	'damage / energy / DPE'
 );
 
 var movelist_MoveList = function (_Component) {
@@ -2130,16 +1875,18 @@ var movelist_MoveList = function (_Component) {
 				{ 'class': 'quick' },
 				_ref3,
 				quickMoves.map(function (move) {
-					return Object(preact_min["h"])(moves_QuickMove, { move: move, list: list });
-				})
+					return Object(preact_min["h"])(moves_QuickMove, { move: list[move] });
+				}),
+				_ref4
 			),
 			chargeMoves && Object(preact_min["h"])(
 				'div',
 				{ 'class': 'charge' },
-				_ref4,
+				movelist__ref5,
 				chargeMoves.map(function (move) {
-					return Object(preact_min["h"])(moves_ChargeMove, { move: move, list: list });
-				})
+					return Object(preact_min["h"])(moves_ChargeMove, { move: list[move] });
+				}),
+				_ref6
 			)
 		);
 	};
@@ -2152,13 +1899,13 @@ var movelist_MoveList = function (_Component) {
 var stats_style = __webpack_require__("xjId");
 var stats_style_default = /*#__PURE__*/__webpack_require__.n(stats_style);
 
-// EXTERNAL MODULE: ../node_modules/preact-material-components/List/index.js
-var List = __webpack_require__("E7XR");
-var List_default = /*#__PURE__*/__webpack_require__.n(List);
+// EXTERNAL MODULE: ../node_modules/preact-material-components/LayoutGrid/index.js
+var LayoutGrid = __webpack_require__("Q1yZ");
+var LayoutGrid_default = /*#__PURE__*/__webpack_require__.n(LayoutGrid);
 
-// EXTERNAL MODULE: ../node_modules/preact-material-components/List/style.css
-var List_style = __webpack_require__("u+vq");
-var List_style_default = /*#__PURE__*/__webpack_require__.n(List_style);
+// EXTERNAL MODULE: ../node_modules/preact-material-components/LayoutGrid/style.css
+var LayoutGrid_style = __webpack_require__("JL9d");
+var LayoutGrid_style_default = /*#__PURE__*/__webpack_require__.n(LayoutGrid_style);
 
 // CONCATENATED MODULE: ./components/stats/index.js
 
@@ -2167,79 +1914,66 @@ var List_style_default = /*#__PURE__*/__webpack_require__.n(List_style);
 
 
 
+
+
 var stats__ref2 = Object(preact_min["h"])(
-	'h3',
-	null,
-	'Base stats'
+	Typography_default.a,
+	{ caption: true },
+	'attack'
 );
 
 var stats__ref3 = Object(preact_min["h"])(
-	List_default.a.SecondaryText,
-	null,
-	'Attack'
+	Typography_default.a,
+	{ caption: true },
+	'defense'
 );
 
 var stats__ref4 = Object(preact_min["h"])(
-	List_default.a.SecondaryText,
-	null,
-	'Defense'
-);
-
-var stats__ref5 = Object(preact_min["h"])(
-	List_default.a.SecondaryText,
-	null,
-	'Stamina'
+	Typography_default.a,
+	{ caption: true },
+	'stamina'
 );
 
 var stats_Stats = function Stats(_ref) {
 	var stats = _ref.stats;
 	return Object(preact_min["h"])(
 		'div',
-		{ 'class': stats_style_default.a.stats },
-		stats__ref2,
+		{ 'class': 'stats' },
 		Object(preact_min["h"])(
-			List_default.a,
-			{ dense: true, twoline: true },
+			LayoutGrid_default.a,
+			null,
 			Object(preact_min["h"])(
-				List_default.a.Item,
+				LayoutGrid_default.a.Inner,
 				null,
 				Object(preact_min["h"])(
-					List_default.a.TextContainer,
-					null,
+					LayoutGrid_default.a.Cell,
+					{ className: stats_style_default.a.stat, desktopCols: '4', phoneCols: '1' },
 					Object(preact_min["h"])(
-						List_default.a.PrimaryText,
+						'div',
 						null,
 						stats.baseAttack
 					),
-					stats__ref3
-				)
-			),
-			Object(preact_min["h"])(
-				List_default.a.Item,
-				null,
+					stats__ref2
+				),
 				Object(preact_min["h"])(
-					List_default.a.TextContainer,
-					null,
+					LayoutGrid_default.a.Cell,
+					{ className: stats_style_default.a.stat, desktopCols: '4', phoneCols: '1' },
 					Object(preact_min["h"])(
-						List_default.a.PrimaryText,
+						'div',
 						null,
 						stats.baseDefense
 					),
-					stats__ref4
-				)
-			),
-			Object(preact_min["h"])(
-				List_default.a.Item,
-				null,
+					stats__ref3
+				),
 				Object(preact_min["h"])(
-					List_default.a.TextContainer,
-					null,
+					LayoutGrid_default.a.Cell,
+					{ className: stats_style_default.a.stat, desktopCols: '4', phoneCols: '1' },
 					Object(preact_min["h"])(
-						List_default.a.PrimaryText,
+						'div',
 						null,
 						stats.baseStamina
 					),
-					stats__ref5
+					stats__ref4
 				)
 			)
 		)
@@ -2247,29 +1981,6 @@ var stats_Stats = function Stats(_ref) {
 };
 
 /* harmony default export */ var components_stats = (stats_Stats);
-// EXTERNAL MODULE: ./components/typeicon/style.css
-var typeicon_style = __webpack_require__("ziGg");
-var typeicon_style_default = /*#__PURE__*/__webpack_require__.n(typeicon_style);
-
-// CONCATENATED MODULE: ./components/typeicon/index.js
-
-
-
-
-var typeicon_TypeIcon = function TypeIcon(_ref) {
-	var type = _ref.type;
-
-	if (!type) return;
-
-	var name = type.substr(13);
-	return Object(preact_min["h"])(
-		'span',
-		{ className: typeicon_style_default.a.type + ' ' + typeicon_style_default.a[type] },
-		name
-	);
-};
-
-/* harmony default export */ var typeicon = (typeicon_TypeIcon);
 // EXTERNAL MODULE: ../node_modules/preact-material-components/Card/index.js
 var Card = __webpack_require__("sJaT");
 var Card_default = /*#__PURE__*/__webpack_require__.n(Card);
@@ -2325,7 +2036,7 @@ var pokemon_Pokemon = function Pokemon(_ref) {
 			)
 		),
 		Object(preact_min["h"])(components_stats, { stats: stats }),
-		Object(preact_min["h"])(movelist, { quickMoves: quickMoves, chargeMoves: chargeMoves, list: chargeMoves }),
+		Object(preact_min["h"])(movelist, { quickMoves: quickMoves, chargeMoves: chargeMoves, list: moveList }),
 		Object(preact_min["h"])(
 			Card_default.a.Actions,
 			null,
@@ -2345,14 +2056,6 @@ var pokemon_Pokemon = function Pokemon(_ref) {
 };
 
 /* harmony default export */ var components_pokemon = (pokemon_Pokemon);
-// EXTERNAL MODULE: ../node_modules/preact-material-components/LayoutGrid/index.js
-var LayoutGrid = __webpack_require__("Q1yZ");
-var LayoutGrid_default = /*#__PURE__*/__webpack_require__.n(LayoutGrid);
-
-// EXTERNAL MODULE: ../node_modules/preact-material-components/LayoutGrid/style.css
-var LayoutGrid_style = __webpack_require__("JL9d");
-var LayoutGrid_style_default = /*#__PURE__*/__webpack_require__.n(LayoutGrid_style);
-
 // CONCATENATED MODULE: ./components/pokemonlist/index.js
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -2404,7 +2107,7 @@ var pokemonlist_PokemonList = function (_Component) {
 					list.map(function (p) {
 						return Object(preact_min["h"])(
 							LayoutGrid_default.a.Cell,
-							{ cols: '3', phoneCols: '4' },
+							{ desktopCols: '3', tabletCols: '4', phoneCols: '4' },
 							Object(preact_min["h"])(components_pokemon, _extends({
 								id: p.pokemonId,
 								moveList: moves,
@@ -2585,7 +2288,7 @@ var effectivenessmatrix_EffectivenessMatrix = function (_Component) {
 					this.order.map(function (type) {
 						return Object(preact_min["h"])(
 							LayoutGrid_default.a.Cell,
-							{ cols: '4', phoneCols: '4', className: effectivenessmatrix_style_default.a.effectiveness },
+							{ desktopCols: '4', tabletCols: '4', phoneCols: '1', className: effectivenessmatrix_style_default.a.effectiveness },
 							Object(preact_min["h"])(typeicon, { type: type }),
 							Object(preact_min["h"])(components_effectiveness, { values: defender[type] })
 						);
@@ -2623,7 +2326,7 @@ function pokedex__inherits(subClass, superClass) { if (typeof superClass !== "fu
 var gmVersionURL = 'https://raw.githubusercontent.com/pokemongo-dev-contrib/pokemongo-game-master/master/versions/latest-version.txt';
 var gmURL = 'https://raw.githubusercontent.com/pokemongo-dev-contrib/pokemongo-game-master/master/versions/%s/GAME_MASTER.json';
 
-var _ref6 = Object(preact_min["h"])(lib["Circular"], null);
+var pokedex__ref6 = Object(preact_min["h"])(lib["Circular"], null);
 
 var pokedex_Pokedex = function (_Component) {
 	pokedex__inherits(Pokedex, _Component);
@@ -3024,15 +2727,15 @@ var pokedex_Pokedex = function (_Component) {
 					null,
 					Object(preact_min["h"])(
 						LayoutGrid_default.a.Cell,
-						{ cols: '2', phoneCols: '4' },
+						{ desktopCols: '2', tabletCols: '2', phoneCols: '4' },
 						Object(preact_min["h"])(effectivenessmatrix, { pokemon: selected, effectiveness: effectiveness })
 					),
 					Object(preact_min["h"])(
 						LayoutGrid_default.a.Cell,
-						{ cols: '10', phoneCols: '4' },
+						{ desktopCols: '10', tabletCols: '6', phoneCols: '4' },
 						Object.keys(selected).length > 0 && Object(preact_min["h"])(pokemonlist, { pokemon: selected, moves: moves, onChoose: this.unhoist, chooseIcon: 'remove_circle' }),
 						Object(preact_min["h"])(filters, { filterPokemon: this.filterPokemon }),
-						loading && _ref6 || Object(preact_min["h"])(pokemonlist, { pokemon: filtered, moves: moves, onChoose: this.hoist, chooseIcon: 'add_circle' })
+						loading && pokedex__ref6 || Object(preact_min["h"])(pokemonlist, { pokemon: filtered, moves: moves, onChoose: this.hoist, chooseIcon: 'add_circle' })
 					)
 				)
 			)
@@ -13151,13 +12854,6 @@ Match.Link = Link;
 
 /***/ }),
 
-/***/ "u+vq":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ "u3et":
 /***/ (function(module, exports) {
 
@@ -14836,7 +14532,7 @@ module.exports = function () {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"stats":"stats__2M_0R"};
+module.exports = {"stat":"stat__2IBkB"};
 
 /***/ }),
 
