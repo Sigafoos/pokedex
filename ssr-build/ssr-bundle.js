@@ -657,6 +657,14 @@ if (false) {
 
 /***/ }),
 
+/***/ "5l4i":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"icon":"icon__2baNA"};
+
+/***/ }),
+
 /***/ "6dK+":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1689,6 +1697,10 @@ var filters_Filters = function (_Component) {
 var pokemon_style = __webpack_require__("sSiY");
 var pokemon_style_default = /*#__PURE__*/__webpack_require__.n(pokemon_style);
 
+// EXTERNAL MODULE: ./components/moves/style.css
+var moves_style = __webpack_require__("5l4i");
+var moves_style_default = /*#__PURE__*/__webpack_require__.n(moves_style);
+
 // EXTERNAL MODULE: ./components/typeicon/style.css
 var typeicon_style = __webpack_require__("ziGg");
 var typeicon_style_default = /*#__PURE__*/__webpack_require__.n(typeicon_style);
@@ -1735,14 +1747,22 @@ var titleCase = function titleCase(text) {
 };
 
 /* harmony default export */ var titlecase = (titleCase);
+// EXTERNAL MODULE: ../node_modules/preact-material-components/Icon/index.js
+var Icon = __webpack_require__("MeGi");
+var Icon_default = /*#__PURE__*/__webpack_require__.n(Icon);
+
 // CONCATENATED MODULE: ./components/moves/index.js
 
 
 
 
 
+
+
 var moves_QuickMove = function QuickMove(_ref) {
-	var move = _ref.move;
+	var move = _ref.move,
+	    onSelect = _ref.onSelect,
+	    selected = _ref.selected;
 
 	var displayName = moves_format(move.uniqueId),
 	    power = move.power,
@@ -1751,10 +1771,18 @@ var moves_QuickMove = function QuickMove(_ref) {
 	if (move.hasOwnProperty('durationTurns')) {
 		turns = Number(move.durationTurns) + 1;
 	}
+	var iconName = selected ? 'check_box' : 'check_box_outline_blank';
 
 	return Object(preact_min["h"])(
 		'div',
-		null,
+		{ onClick: function onClick() {
+				return onSelect({ move: move, fast: true });
+			} },
+		Object(preact_min["h"])(
+			Icon_default.a,
+			{ 'class': moves_style_default.a.icon },
+			iconName
+		),
 		Object(preact_min["h"])(typeicon, { type: move.type }),
 		displayName,
 		': ',
@@ -1771,15 +1799,27 @@ var moves_QuickMove = function QuickMove(_ref) {
 };
 
 var moves_ChargeMove = function ChargeMove(_ref2) {
-	var move = _ref2.move;
+	var move = _ref2.move,
+	    onSelect = _ref2.onSelect,
+	    selected = _ref2.selected,
+	    fastEnergy = _ref2.fastEnergy;
 
 	var displayName = moves_format(move.uniqueId),
 	    power = move.power,
 	    energy = Math.abs(move.energyDelta);
+	var iconName = selected ? 'check_box' : 'check_box_outline_blank';
+	var turns = fastEnergy && " (" + Math.ceil(energy / fastEnergy) + ")";
 
 	return Object(preact_min["h"])(
 		'div',
-		null,
+		{ onClick: function onClick() {
+				return onSelect({ move: move });
+			} },
+		Object(preact_min["h"])(
+			Icon_default.a,
+			{ 'class': moves_style_default.a.icon },
+			iconName
+		),
 		Object(preact_min["h"])(typeicon, { type: move.type }),
 		displayName,
 		': ',
@@ -1787,7 +1827,8 @@ var moves_ChargeMove = function ChargeMove(_ref2) {
 		' / ',
 		energy,
 		' / ',
-		Math.round(power / energy * 100) / 100
+		Math.round(power / energy * 100) / 100,
+		turns
 	);
 };
 
@@ -1822,71 +1863,120 @@ function movelist__inherits(subClass, superClass) { if (typeof superClass !== "f
 
 
 
-var movelist__ref2 = Object(preact_min["h"])(
+var _ref4 = Object(preact_min["h"])(
 	'h3',
 	null,
 	'Moves'
 );
 
-var _ref3 = Object(preact_min["h"])(
+var movelist__ref5 = Object(preact_min["h"])(
 	'h4',
 	null,
 	'Quick'
 );
 
-var _ref4 = Object(preact_min["h"])(
+var _ref6 = Object(preact_min["h"])(
 	Typography_default.a,
 	{ caption: true },
 	'damage / energy / turns / DPT / EPT'
 );
 
-var movelist__ref5 = Object(preact_min["h"])(
+var _ref7 = Object(preact_min["h"])(
 	'h4',
 	null,
 	'Charge'
-);
-
-var _ref6 = Object(preact_min["h"])(
-	Typography_default.a,
-	{ caption: true },
-	'damage / energy / DPE'
 );
 
 var movelist_MoveList = function (_Component) {
 	movelist__inherits(MoveList, _Component);
 
 	function MoveList() {
+		var _temp, _this, _ret;
+
 		movelist__classCallCheck(this, MoveList);
 
-		return movelist__possibleConstructorReturn(this, _Component.apply(this, arguments));
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
+
+		return _ret = (_temp = (_this = movelist__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
+			selectedFast: undefined,
+			selectedCharge: []
+		}, _this.onSelect = function (_ref) {
+			var move = _ref.move,
+			    fast = _ref.fast;
+
+			if (fast) {
+				if (move.uniqueId == _this.state.selectedFast) {
+					_this.setState({ selectedFast: undefined });
+				} else {
+					_this.setState({ selectedFast: move.uniqueId });
+				}
+			} else {
+				var charged = _this.state.selectedCharge;
+				var i = charged.indexOf(move.uniqueId);
+				if (i !== -1) {
+					charged.splice(i, 1);
+				} else {
+					charged.push(move.uniqueId);
+					if (charged.length > 2) {
+						charged.shift();
+					}
+				}
+				_this.setState({ selectedCharge: charged });
+			}
+		}, _temp), movelist__possibleConstructorReturn(_this, _ret);
 	}
 
-	MoveList.prototype.render = function render(_ref, _) {
-		var list = _ref.list,
-		    quickMoves = _ref.quickMoves,
-		    chargeMoves = _ref.chargeMoves;
+	MoveList.prototype.render = function render(_ref2, _ref3) {
+		var _this2 = this;
+
+		var list = _ref2.list,
+		    quickMoves = _ref2.quickMoves,
+		    chargeMoves = _ref2.chargeMoves;
+		var selectedFast = _ref3.selectedFast,
+		    selectedCharge = _ref3.selectedCharge;
+
+		var fastMove = void 0;
+		if (selectedFast) {
+			fastMove = list[selectedFast];
+		}
 
 		return Object(preact_min["h"])(
 			'div',
 			{ 'class': 'moves' },
-			movelist__ref2,
+			_ref4,
 			quickMoves && Object(preact_min["h"])(
 				'div',
 				{ 'class': 'quick' },
-				_ref3,
+				movelist__ref5,
 				quickMoves.map(function (move) {
-					return Object(preact_min["h"])(moves_QuickMove, { move: list[move] });
+					return Object(preact_min["h"])(moves_QuickMove, {
+						move: list[move],
+						onSelect: _this2.onSelect,
+						selected: selectedFast && move === selectedFast
+					});
 				}),
-				_ref4
+				_ref6
 			),
 			chargeMoves && Object(preact_min["h"])(
 				'div',
 				{ 'class': 'charge' },
-				movelist__ref5,
+				_ref7,
 				chargeMoves.map(function (move) {
-					return Object(preact_min["h"])(moves_ChargeMove, { move: list[move] });
+					return Object(preact_min["h"])(moves_ChargeMove, {
+						move: list[move],
+						onSelect: _this2.onSelect,
+						selected: selectedCharge.indexOf(move) !== -1,
+						fastEnergy: fastMove && fastMove.energyDelta
+					});
 				}),
-				_ref6
+				Object(preact_min["h"])(
+					Typography_default.a,
+					{ caption: true },
+					'damage / energy / DPE ',
+					fastMove && " (quick moves required)"
+				)
 			)
 		);
 	};
