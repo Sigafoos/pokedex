@@ -1,8 +1,10 @@
 import { h } from 'preact';
+import style from './style';
 import TypeIcon from '../typeicon';
 import titleCase from '../../utilities/titlecase';
+import Icon from 'preact-material-components/Icon';
 
-const QuickMove = ({ move }) => {
+const QuickMove = ({ move, onSelect, selected }) => {
 	let displayName = format(move.uniqueId),
 		power = move.power,
 		energy = move.energyDelta,
@@ -10,24 +12,30 @@ const QuickMove = ({ move }) => {
 	if (move.hasOwnProperty('durationTurns')) {
 		turns = Number(move.durationTurns)+1;
 	}
+	let iconName = (selected) ? 'check_box' : 'check_box_outline_blank';
 
 	return (
-		<div>
+		<div onClick={() => onSelect({ move, fast: true })}>
+			<Icon class={style.icon}>{iconName}</Icon>
 			<TypeIcon type={move.type} />
 			{displayName}: {power} / {energy} / {turns} / {Math.round(power/turns*100)/100} / {Math.round(energy/turns*100)/100}
 		</div>
 	);
 }
 
-const ChargeMove = ({ move }) => {
+const ChargeMove = ({ move, onSelect, selected, fastEnergy }) => {
 	let displayName = format(move.uniqueId),
 	power = move.power,
 	energy = Math.abs(move.energyDelta);
+	let iconName = (selected) ? 'check_box' : 'check_box_outline_blank';
+	let turns = fastEnergy && (" (" + Math.ceil(energy/fastEnergy) + ")");
 
 	return (
-		<div>
-		<TypeIcon type={move.type} />
-		{displayName}: {power} / {energy} / {Math.round(power/energy*100)/100}
+		<div onClick={() => onSelect({ move })}>
+			<Icon class={style.icon}>{iconName}</Icon>
+			<TypeIcon type={move.type} />
+			{displayName}: {power} / {energy} / {Math.round(power/energy*100)/100}
+			{turns}
 		</div>
 	);
 }
