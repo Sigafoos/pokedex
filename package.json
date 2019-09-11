@@ -10,7 +10,7 @@
     "start:development": "npm run -s dev",
     "build": "preact build",
     "serve": "preact build && preact serve",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && echo \"pokedex.kentonpokemon.club\" > ./build/CNAME",
     "deploy": "gh-pages -d build",
     "dev": "preact watch",
     "lint": "eslint src",
