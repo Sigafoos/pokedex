@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import legacy from '../../data/legacy';
 import Filters from '../filters';
 import PokemonList from '../pokemonlist';
 import EffectivenessMatrix from '../effectivenessmatrix';
@@ -126,6 +127,7 @@ class Pokedex extends Component {
 		localStorage.setItem('effectiveness', parsedEffectiveness);
 		localStorage.setItem('version', this.state.version);
 
+		pokemon = this.addLegacyMoves(pokemon);
 		let filtered = pokemon;
 		let selected = JSON.parse(localStorage.getItem('selected')) || {};
 		for (let name in selected) {
@@ -145,6 +147,7 @@ class Pokedex extends Component {
 	loadGamemaster = () => {
 		let p = JSON.parse(localStorage.getItem('pokemon')),
 			selected = JSON.parse(localStorage.getItem('selected')) || {};
+		p = this.addLegacyMoves(p);
 		let filtered = p;
 
 		for (let name in selected) {
@@ -159,6 +162,19 @@ class Pokedex extends Component {
 			effectiveness: JSON.parse(localStorage.getItem('effectiveness')),
 			loading: false
 		});
+	}
+
+	addLegacyMoves = pokemon => {
+		for (name in legacy) {
+			let { quick, charge } = legacy[name];
+			if (quick) {
+				pokemon[name].quickMoves = pokemon[name].quickMoves.concat(quick);
+			}
+			if (charge) {
+				pokemon[name].cinematicMoves = pokemon[name].cinematicMoves.concat(charge);
+			}
+		}
+		return pokemon;
 	}
 
 	idRegexp = /^(\d*)(-?)(\d*)$/;
