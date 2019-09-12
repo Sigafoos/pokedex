@@ -21,7 +21,7 @@ const Move = ({ move, onSelect, selected, fastEnergy, quick, charge, legacy }) =
 	if (charge) stats = (<Fragment>{displayName}{legacyText}: {power} / {energy} / {Math.round(power/energy*100)/100}{turnsToCharge}</Fragment>);
 
 	return (
-		<div onClick={() => onSelect({ move, fast: true })}>
+		<div onClick={() => onSelect({ move, fast: quick })}>
 			<Icon class={style.icon}>{iconName}</Icon>
 			<TypeIcon type={move.type} />
 			{stats}
