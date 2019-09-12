@@ -1621,8 +1621,8 @@ var home_style = __webpack_require__("ZAL5");
 var home_style_default = /*#__PURE__*/__webpack_require__.n(home_style);
 
 // EXTERNAL MODULE: ./data/legacy.json
-var legacy = __webpack_require__("rH/a");
-var legacy_default = /*#__PURE__*/__webpack_require__.n(legacy);
+var data_legacy = __webpack_require__("rH/a");
+var legacy_default = /*#__PURE__*/__webpack_require__.n(data_legacy);
 
 // EXTERNAL MODULE: ./components/filters/style.css
 var filters_style = __webpack_require__("WotE");
@@ -1763,19 +1763,68 @@ var Icon_default = /*#__PURE__*/__webpack_require__.n(Icon);
 
 
 
-var moves_QuickMove = function QuickMove(_ref) {
+var moves__ref2 = Object(preact_min["h"])(
+	'sup',
+	{ title: 'legacy' },
+	'(L)'
+);
+
+var moves_Move = function Move(_ref) {
 	var move = _ref.move,
 	    onSelect = _ref.onSelect,
-	    selected = _ref.selected;
+	    selected = _ref.selected,
+	    fastEnergy = _ref.fastEnergy,
+	    quick = _ref.quick,
+	    charge = _ref.charge,
+	    legacy = _ref.legacy;
 
 	var displayName = moves_format(move.uniqueId),
 	    power = move.power,
-	    energy = move.energyDelta,
+	    energy = Math.abs(move.energyDelta),
 	    turns = 1;
 	if (move.hasOwnProperty('durationTurns')) {
 		turns = Number(move.durationTurns) + 1;
 	}
-	var iconName = selected ? 'check_box' : 'check_box_outline_blank';
+	var iconName = selected ? 'check_box' : 'check_box_outline_blank',
+	    turnsToCharge = fastEnergy && Object(preact_min["h"])(
+		preact_min["Fragment"],
+		null,
+		' (',
+		Math.ceil(energy / fastEnergy),
+		')'
+	),
+	    legacyText = legacy ? moves__ref2 : undefined;
+
+	var stats = void 0;
+	if (quick) stats = Object(preact_min["h"])(
+		preact_min["Fragment"],
+		null,
+		displayName,
+		legacyText,
+		': ',
+		power,
+		' / ',
+		energy,
+		' / ',
+		turns,
+		' / ',
+		Math.round(power / turns * 100) / 100,
+		' / ',
+		Math.round(energy / turns * 100) / 100
+	);
+	if (charge) stats = Object(preact_min["h"])(
+		preact_min["Fragment"],
+		null,
+		displayName,
+		legacyText,
+		': ',
+		power,
+		' / ',
+		energy,
+		' / ',
+		Math.round(power / energy * 100) / 100,
+		turnsToCharge
+	);
 
 	return Object(preact_min["h"])(
 		'div',
@@ -1788,31 +1837,29 @@ var moves_QuickMove = function QuickMove(_ref) {
 			iconName
 		),
 		Object(preact_min["h"])(typeicon, { type: move.type }),
-		displayName,
-		': ',
-		power,
-		' / ',
-		energy,
-		' / ',
-		turns,
-		' / ',
-		Math.round(power / turns * 100) / 100,
-		' / ',
-		Math.round(energy / turns * 100) / 100
+		stats
 	);
 };
 
-var moves_ChargeMove = function ChargeMove(_ref2) {
-	var move = _ref2.move,
-	    onSelect = _ref2.onSelect,
-	    selected = _ref2.selected,
-	    fastEnergy = _ref2.fastEnergy;
+var _ref4 = Object(preact_min["h"])(
+	'sup',
+	{ title: 'legacy' },
+	'(L)'
+);
+
+var moves_ChargeMove = function ChargeMove(_ref3) {
+	var move = _ref3.move,
+	    onSelect = _ref3.onSelect,
+	    selected = _ref3.selected,
+	    fastEnergy = _ref3.fastEnergy,
+	    legacy = _ref3.legacy;
 
 	var displayName = moves_format(move.uniqueId),
 	    power = move.power,
 	    energy = Math.abs(move.energyDelta);
-	var iconName = selected ? 'check_box' : 'check_box_outline_blank';
-	var turns = fastEnergy && " (" + Math.ceil(energy / fastEnergy) + ")";
+	var iconName = selected ? 'check_box' : 'check_box_outline_blank',
+	    turns = fastEnergy && " (" + Math.ceil(energy / fastEnergy) + ")",
+	    legacyText = legacy ? _ref4 : undefined;
 
 	return Object(preact_min["h"])(
 		'div',
@@ -1825,13 +1872,6 @@ var moves_ChargeMove = function ChargeMove(_ref2) {
 			iconName
 		),
 		Object(preact_min["h"])(typeicon, { type: move.type }),
-		displayName,
-		': ',
-		power,
-		' / ',
-		energy,
-		' / ',
-		Math.round(power / energy * 100) / 100,
 		turns
 	);
 };
@@ -1844,7 +1884,7 @@ var moves_format = function format(move) {
 	return titlecase(move);
 };
 
-
+/* harmony default export */ var components_moves = (moves_Move);
 // EXTERNAL MODULE: ../node_modules/preact-material-components/Typography/index.js
 var Typography = __webpack_require__("Ym6P");
 var Typography_default = /*#__PURE__*/__webpack_require__.n(Typography);
@@ -1867,7 +1907,7 @@ function movelist__inherits(subClass, superClass) { if (typeof superClass !== "f
 
 
 
-var _ref4 = Object(preact_min["h"])(
+var movelist__ref4 = Object(preact_min["h"])(
 	'h3',
 	null,
 	'Moves'
@@ -1937,9 +1977,13 @@ var movelist_MoveList = function (_Component) {
 
 		var list = _ref2.list,
 		    quickMoves = _ref2.quickMoves,
-		    chargeMoves = _ref2.chargeMoves;
+		    chargeMoves = _ref2.chargeMoves,
+		    _ref2$legacyMoves = _ref2.legacyMoves,
+		    legacyMoves = _ref2$legacyMoves === undefined ? {} : _ref2$legacyMoves;
 		var selectedFast = _ref3.selectedFast,
 		    selectedCharge = _ref3.selectedCharge;
+		var legacyCharge = legacyMoves.charge,
+		    legacyQuick = legacyMoves.quick;
 
 		var fastMove = void 0;
 		if (selectedFast) {
@@ -1949,16 +1993,17 @@ var movelist_MoveList = function (_Component) {
 		return Object(preact_min["h"])(
 			'div',
 			{ 'class': 'moves' },
-			_ref4,
+			movelist__ref4,
 			quickMoves && Object(preact_min["h"])(
 				'div',
 				{ 'class': 'quick' },
 				movelist__ref5,
 				quickMoves.map(function (move) {
-					return Object(preact_min["h"])(moves_QuickMove, {
+					return Object(preact_min["h"])(components_moves, { quick: true,
 						move: list[move],
 						onSelect: _this2.onSelect,
-						selected: selectedFast && move === selectedFast
+						selected: selectedFast && move === selectedFast,
+						legacy: legacyQuick && legacyQuick.indexOf(move) !== -1
 					});
 				}),
 				_ref6
@@ -1968,10 +2013,11 @@ var movelist_MoveList = function (_Component) {
 				{ 'class': 'charge' },
 				_ref7,
 				chargeMoves.map(function (move) {
-					return Object(preact_min["h"])(moves_ChargeMove, {
+					return Object(preact_min["h"])(components_moves, { charge: true,
 						move: list[move],
 						onSelect: _this2.onSelect,
 						selected: selectedCharge.indexOf(move) !== -1,
+						legacy: legacyCharge && legacyCharge.indexOf(move) !== -1,
 						fastEnergy: fastMove && fastMove.energyDelta
 					});
 				}),
@@ -2031,45 +2077,37 @@ var stats__ref4 = Object(preact_min["h"])(
 var stats_Stats = function Stats(_ref) {
 	var stats = _ref.stats;
 	return Object(preact_min["h"])(
-		'div',
-		{ 'class': 'stats' },
+		LayoutGrid_default.a.Inner,
+		{ className: stats_style_default.a.statsgrid },
 		Object(preact_min["h"])(
-			LayoutGrid_default.a,
-			null,
+			LayoutGrid_default.a.Cell,
+			{ className: stats_style_default.a.stat, desktopCols: '4', phoneCols: '1' },
 			Object(preact_min["h"])(
-				LayoutGrid_default.a.Inner,
+				'div',
 				null,
-				Object(preact_min["h"])(
-					LayoutGrid_default.a.Cell,
-					{ className: stats_style_default.a.stat, desktopCols: '4', phoneCols: '1' },
-					Object(preact_min["h"])(
-						'div',
-						null,
-						stats.baseAttack
-					),
-					stats__ref2
-				),
-				Object(preact_min["h"])(
-					LayoutGrid_default.a.Cell,
-					{ className: stats_style_default.a.stat, desktopCols: '4', phoneCols: '1' },
-					Object(preact_min["h"])(
-						'div',
-						null,
-						stats.baseDefense
-					),
-					stats__ref3
-				),
-				Object(preact_min["h"])(
-					LayoutGrid_default.a.Cell,
-					{ className: stats_style_default.a.stat, desktopCols: '4', phoneCols: '1' },
-					Object(preact_min["h"])(
-						'div',
-						null,
-						stats.baseStamina
-					),
-					stats__ref4
-				)
-			)
+				stats.baseAttack
+			),
+			stats__ref2
+		),
+		Object(preact_min["h"])(
+			LayoutGrid_default.a.Cell,
+			{ className: stats_style_default.a.stat, desktopCols: '4', phoneCols: '1' },
+			Object(preact_min["h"])(
+				'div',
+				null,
+				stats.baseDefense
+			),
+			stats__ref3
+		),
+		Object(preact_min["h"])(
+			LayoutGrid_default.a.Cell,
+			{ className: stats_style_default.a.stat, desktopCols: '4', phoneCols: '1' },
+			Object(preact_min["h"])(
+				'div',
+				null,
+				stats.baseStamina
+			),
+			stats__ref4
 		)
 	);
 };
@@ -2106,6 +2144,7 @@ var pokemon_Pokemon = function Pokemon(_ref) {
 	    quickMoves = _ref.quickMoves,
 	    stats = _ref.stats,
 	    chargeMoves = _ref.chargeMoves,
+	    legacyMoves = _ref.legacyMoves,
 	    alolan = _ref.alolan,
 	    onChoose = _ref.onChoose,
 	    chooseIcon = _ref.chooseIcon;
@@ -2130,7 +2169,7 @@ var pokemon_Pokemon = function Pokemon(_ref) {
 			)
 		),
 		Object(preact_min["h"])(components_stats, { stats: stats }),
-		Object(preact_min["h"])(movelist, { quickMoves: quickMoves, chargeMoves: chargeMoves, list: moveList }),
+		Object(preact_min["h"])(movelist, { quickMoves: quickMoves, chargeMoves: chargeMoves, legacyMoves: legacyMoves, list: moveList }),
 		Object(preact_min["h"])(
 			Card_default.a.Actions,
 			null,
@@ -2193,25 +2232,21 @@ var pokemonlist_PokemonList = function (_Component) {
 			'div',
 			{ id: 'pokemonlist' },
 			Object(preact_min["h"])(
-				LayoutGrid_default.a,
+				LayoutGrid_default.a.Inner,
 				null,
-				Object(preact_min["h"])(
-					LayoutGrid_default.a.Inner,
-					null,
-					list.map(function (p) {
-						return Object(preact_min["h"])(
-							LayoutGrid_default.a.Cell,
-							{ desktopCols: '3', tabletCols: '4', phoneCols: '4' },
-							Object(preact_min["h"])(components_pokemon, _extends({
-								id: p.pokemonId,
-								moveList: moves,
-								chargeMoves: p.cinematicMoves,
-								onChoose: onChoose,
-								chooseIcon: chooseIcon
-							}, p))
-						);
-					})
-				)
+				list.map(function (p) {
+					return Object(preact_min["h"])(
+						LayoutGrid_default.a.Cell,
+						{ desktopCols: '3', tabletCols: '4', phoneCols: '4' },
+						Object(preact_min["h"])(components_pokemon, _extends({
+							id: p.pokemonId,
+							moveList: moves,
+							chargeMoves: p.cinematicMoves,
+							onChoose: onChoose,
+							chooseIcon: chooseIcon
+						}, p))
+					);
+				})
 			)
 		);
 	};
@@ -2600,6 +2635,7 @@ var pokedex_Pokedex = function (_Component) {
 			});
 		}, _this.addLegacyMoves = function (pokemon) {
 			for (name in legacy_default.a) {
+				pokemon[name].legacyMoves = legacy_default.a[name];
 				var _legacy$name = legacy_default.a[name],
 				    quick = _legacy$name.quick,
 				    charge = _legacy$name.charge;
@@ -2838,12 +2874,12 @@ var pokedex_Pokedex = function (_Component) {
 					null,
 					Object(preact_min["h"])(
 						LayoutGrid_default.a.Cell,
-						{ desktopCols: '2', tabletCols: '2', phoneCols: '4' },
+						{ desktopCols: '3', tabletCols: '2', phoneCols: '4' },
 						Object(preact_min["h"])(effectivenessmatrix, { pokemon: selected, effectiveness: effectiveness })
 					),
 					Object(preact_min["h"])(
 						LayoutGrid_default.a.Cell,
-						{ desktopCols: '10', tabletCols: '6', phoneCols: '4' },
+						{ desktopCols: '9', tabletCols: '6', phoneCols: '4' },
 						Object.keys(selected).length > 0 && Object(preact_min["h"])(pokemonlist, { pokemon: selected, moves: moves, onChoose: this.unhoist, chooseIcon: 'remove_circle' }),
 						Object(preact_min["h"])(filters, { filterPokemon: this.filterPokemon }),
 						loading && pokedex__ref6 || Object(preact_min["h"])(pokemonlist, { pokemon: filtered, moves: moves, onChoose: this.hoist, chooseIcon: 'add_circle' })
@@ -12348,7 +12384,7 @@ module.exports = function (originalModule) {
 /***/ "rH/a":
 /***/ (function(module, exports) {
 
-module.exports = {"BULBASAUR":{"charge":["RETURN","FRUSTRATION"]},"IVYSAUR":{"charge":["RETURN","FRUSTRATION"]},"VENUSAUR":{"charge":["FRENZY_PLANT","RETURN","FRUSTRATION"]},"CHARMANDER":{"charge":["RETURN","FRUSTRATION"]},"SQUIRTLE":{"charge":["RETURN","FRUSTRATION"]},"WARTORTLE":{"charge":["RETURN","FRUSTRATION"]},"BLASTOISE":{"charge":["HYDRO_CANNON","RETURN","FRUSTRATION"]},"RATTATA":{"charge":["RETURN","FRUSTRATION"]},"RATICATE":{"charge":["RETURN","FRUSTRATION"]},"SPEAROW":{"charge":["TWISTER"]},"FEAROW":{"charge":["TWISTER"]},"EKANS":{"charge":["GUNK_SHOT"]},"SANDSHREW":{"charge":["ROCK_TOMB"]},"JIGGLYPUFF":{"charge":["PLAY_ROUGH","BODY_SLAM"]},"ZUBAT":{"charge":["SLUDGE_BOMB","RETURN","FRUSTRATION"]},"GOLBAT":{"charge":["OMINOUS_WIND","RETURN","FRUSTRATION"]},"MEOWTH":{"charge":["BODY_SLAM"]},"PERSIAN":{"charge":["NIGHT_SLASH"]},"POLIWAG":{"charge":["RETURN","FRUSTRATION"]},"POLIWHIRL":{"charge":["SCALD","RETURN","FRUSTRATION"]},"ALAKAZAM":{"charge":["DAZZLING_GLEAM","PSYCHIC"]},"MACHOKE":{"charge":["CROSS_CHOP"]},"PONYTA":{"charge":["FIRE_BLAST"]},"DODUO":{"charge":["SWIFT"]},"DODRIO":{"charge":["AIR_CUTTER"]},"CLOYSTER":{"charge":["BLIZZARD","ICY_WIND"]},"ONIX":{"charge":["IRON_HEAD","ROCK_SLIDE"]},"DROWZEE":{"charge":["RETURN","FRUSTRATION"]},"HYPNO":{"charge":["PSYSHOCK","SHADOW_BALL","RETURN","FRUSTRATION"]},"VOLTORB":{"charge":["SIGNAL_BEAM"]},"CUBONE":{"charge":["RETURN","FRUSTRATION"]},"MAROWAK":{"charge":["RETURN","FRUSTRATION"]},"HITMONLEE":{"charge":["STOMP","BRICK_BREAK"]},"RHYDON":{"charge":["MEGAHORN"]},"CHANSEY":{"charge":["PSYBEAM"]},"TANGELA":{"charge":["POWER_WHIP"]},"KANGASKHAN":{"charge":["BRICK_BREAK","STOMP"]},"SEADRA":{"charge":["BLIZZARD"]},"MAGIKARP":{"charge":["RETURN","FRUSTRATION"]},"EEVEE":{"charge":["BODY_SLAM","LAST_RESORT"]},"VAPOREON":{"charge":["LAST_RESORT"]},"JOLTEON":{"charge":["LAST_RESORT"]},"FLAREON":{"charge":["HEAT_WAVE","LAST_RESORT"]},"OMANYTE":{"charge":["ROCK_TOMB","BRINE"]},"ARTICUNO":{"charge":["HURRICANE"]},"DRATINI":{"charge":["RETURN","FRUSTRATION"]},"DRAGONAIR":{"charge":["RETURN","FRUSTRATION"]},"MEWTWO":{"charge":["SHADOW_BALL","HYPER_BEAM"]},"MEGANIUM":{"charge":["FRENZY_PLANT"]},"TYPHLOSION":{"charge":["BLAST_BURN"]},"CROBAT":{"charge":["RETURN","FRUSTRATION"]},"CLEFFA":{"charge":["PSYCHIC","BODY_SLAM"]},"IGGLYBUFF":{"charge":["BODY_SLAM"]},"AMPHAROS":{"charge":["DRAGON_PULSE"]},"POLITOED":{"charge":["EARTHQUAKE","RETURN","FRUSTRATION"]},"ESPEON":{"charge":["LAST_RESORT"]},"UMBREON":{"charge":["LAST_RESORT"]},"HOUNDOUR":{"charge":["RETURN","FRUSTRATION"]},"HOUNDOOM":{"charge":["RETURN","FRUSTRATION"]},"ELEKID":{"charge":["THUNDERBOLT"]},"MAGBY":{"charge":["FLAMETHROWER"]},"SCEPTILE":{"charge":["FRENZY_PLANT"]},"BLAZIKEN":{"charge":["STONE_EDGE","BLAST_BURN"]},"SWAMPERT":{"charge":["HYDRO_CANNON"]},"RALTS":{"charge":["RETURN","FRUSTRATION"]},"KIRLIA":{"charge":["RETURN","FRUSTRATION"]},"GARDEVOIR":{"charge":["SYNCHRONOISE","RETURN","FRUSTRATION"]},"BRELOOM":{"charge":["GRASS_KNOT"]},"SLAKING":{"charge":["BODY_SLAM"]},"LOUDRED":{"charge":["CRUNCH"]},"SALAMENCE":{"charge":["OUTRAGE"]},"METAGROSS":{"charge":["METEOR_MASH"]},"TORTERRA":{"charge":["FRENZY_PLANT"]},"MAMOSWINE":{"charge":["ANCIENT_POWER"]},"GALLADE":{"charge":["SYNCHRONOISE","RETURN","FRUSTRATION"]},"GASTRODON":{"charge":["EARTHQUAKE"]},"GRIMER":{"charge":["RETURN","FRUSTRATION"]},"KOFFING":{"fast":["ACID_FAST"]},"WEEZING":{"fast":["ACID_FAST"]},"MUK":{"fast":["ACID_FAST","LICK_FAST"],"charge":["RETURN","FRUSTRATION"]},"ARCANINE":{"fast":["BITE_FAST"],"charge":["BULLDOZE","FLAMETHROWER"]},"SHEDINJA":{"fast":["BITE_FAST","STRUGGLE_BUG_FAST"]},"BUTTERFREE":{"fast":["BUG_BITE_FAST"]},"BEEDRILL":{"fast":["BUG_BITE_FAST"]},"PARASECT":{"fast":["BUG_BITE_FAST"]},"VENOMOTH":{"fast":["BUG_BITE_FAST"],"charge":["POISON_FANG"]},"EXEGGUTOR":{"fast":["CONFUSION_FAST"],"charge":["ZEN_HEADBUTT_FAST"]},"FARFETCH'D":{"fast":["CUT_FAST"]},"DRAGONITE":{"fast":["DRAGON_BREATH_FAST"],"charge":["DRAGON_CLAW","DRAGON_PULSE","DRACO_METEOR","RETURN","FRUSTRATION"]},"GYARADOS":{"fast":["DRAGON_BREATH_FAST","DRAGON_TAIL_FAST"],"charge":["DRAGON_PULSE","TWISTER","RETURN","FRUSTRATION"]},"NINETALES":{"fast":["EMBER_FAST"],"charge":["FIRE_BLAST","FLAMETHROWER"]},"RAPIDASH":{"fast":["EMBER_FAST"]},"MOLTRES":{"fast":["EMBER_FAST"],"charge":["SKY_ATTACK"]},"CHARIZARD":{"fast":["EMBER_FAST"],"charge":["WING_ATTACK_FAST","FLAMETHROWER","BLAST_BURN"]},"SMOOCHUM":{"fast":["FROST_BREATH_FAST"]},"NIDOKING":{"fast":["FURY_CUTTER_FAST"]},"PINSIR":{"fast":["FURY_CUTTER_FAST"],"charge":["SUBMISSION"]},"KABUTOPS":{"fast":["FURY_CUTTER_FAST"]},"SUICUNE":{"fast":["HIDDEN_POWER_FAST"]},"DEWGONG":{"fast":["ICE_SHARD_FAST"],"charge":["AQUA_JET","ICY_WIND"]},"LAPRAS":{"fast":["ICE_SHARD_FAST"],"charge":["DRAGON_PULSE","ICE_BEAM"]},"DELIBIRD":{"fast":["ICE_SHARD_FAST","QUICK_ATTACK_FAST"]},"PRIMEAPE":{"fast":["KARATE_CHOP_FAST"],"charge":["CROSS_CHOP"]},"MACHAMP":{"fast":["KARATE_CHOP_FAST"],"charge":["CROSS_CHOP","STONE_EDGE","SUBMISSION"]},"HAUNTER":{"fast":["LICK_FAST"],"charge":["SHADOW_BALL"]},"MACHOP":{"fast":["LOW_KICK_FAST"]},"DIGLETT":{"fast":["MUD_SHOT_FAST"]},"DUGTRIO":{"fast":["MUD_SHOT_FAST"]},"POLIWRATH":{"fast":["MUD_SHOT_FAST"],"charge":["SUBMISSION","RETURN","FRUSTRATION"]},"GRAVELER":{"fast":["MUD_SHOT_FAST"],"charge":["ROCK_SLIDE"]},"GOLEM":{"fast":["MUD_SHOT_FAST"],"charge":["ANCIENT_POWER"]},"KINGLER":{"fast":["MUD_SHOT_FAST"]},"SEAKING":{"fast":["POISON_JAB_FAST"],"charge":["ICY_WIND","DRILL_RUN"]},"CLEFABLE":{"fast":["POUND_FAST"]},"JYNX":{"fast":["POUND_FAST"],"charge":["ICE_PUNCH"]},"PIKACHU":{"fast":["PRESENT_FAST"],"charge":["SURF","THUNDER"]},"STARYU":{"fast":["QUICK_ATTACK_FAST"]},"PICHU":{"fast":["QUICK_ATTACK_FAST"]},"STARMIE":{"fast":["QUICK_ATTACK_FAST","TACKLE_FAST"],"charge":["PSYBEAM"]},"PORYGON":{"fast":["QUICK_ATTACK_FAST","TACKLE_FAST","ZEN_HEADBUTT_FAST"],"charge":["DISCHARGE","PSYBEAM","SIGNAL_BEAM"]},"WEEPINBELL":{"fast":["RAZOR_LEAF_FAST"]},"HITMONCHAN":{"fast":["ROCK_SMASH_FAST"],"charge":["BRICK_BREAK"]},"OMASTAR":{"fast":["ROCK_THROW_FAST"],"charge":["ROCK_SLIDE"]},"CHARMELEON":{"fast":["SCRATCH_FAST"],"charge":["RETURN","FRUSTRATION"]},"GENGAR":{"fast":["SHADOW_CLAW_FAST","LICK_FAST"],"charge":["SLUDGE_WAVE","DARK_PULSE","PSYCHIC"]},"TYRANITAR":{"fast":["SMACK_DOWN_FAST"]},"SCYTHER":{"fast":["STEEL_WING_FAST"],"charge":["BUG_BUZZ","RETURN","FRUSTRATION"]},"TOGETIC":{"fast":["STEEL_WING_FAST","ZEN_HEADBUTT_FAST"]},"GASTLY":{"fast":["SUCKER_PUNCH_FAST"],"charge":["OMINOUS_WIND"]},"ELECTRODE":{"fast":["TACKLE_FAST"]},"RAICHU":{"fast":["THUNDER_SHOCK_FAST"],"charge":["THUNDER"]},"MAGNETON":{"fast":["THUNDER_SHOCK_FAST"],"charge":["DISCHARGE"]},"ZAPDOS":{"fast":["THUNDER_SHOCK_FAST"],"charge":["DISCHARGE"]},"SEEL":{"fast":["WATER_GUN_FAST"],"charge":["AQUA_JET"]},"FERALIGATR":{"fast":["WATER_GUN_FAST"],"charge":["HYDRO_CANNON"]},"KINGDRA":{"fast":["WATER_GUN_FAST"]},"PIDGEOT":{"fast":["WING_ATTACK_FAST"],"charge":["AIR_CUTTER"]},"SNORLAX":{"fast":["YAWN_FAST"],"charge":["BODY_SLAM","RETURN","FRUSTRATION"]},"TOGEPI":{"fast":["ZEN_HEADBUTT_FAST"]}}
+module.exports = {"BULBASAUR":{"charge":["RETURN","FRUSTRATION"]},"IVYSAUR":{"charge":["RETURN","FRUSTRATION"]},"VENUSAUR":{"charge":["FRENZY_PLANT","RETURN","FRUSTRATION"]},"CHARMANDER":{"charge":["RETURN","FRUSTRATION"]},"SQUIRTLE":{"charge":["RETURN","FRUSTRATION"]},"WARTORTLE":{"charge":["RETURN","FRUSTRATION"]},"BLASTOISE":{"charge":["HYDRO_CANNON","RETURN","FRUSTRATION"]},"RATTATA":{"charge":["RETURN","FRUSTRATION"]},"RATICATE":{"charge":["RETURN","FRUSTRATION"]},"SPEAROW":{"charge":["TWISTER"]},"FEAROW":{"charge":["TWISTER"]},"EKANS":{"charge":["GUNK_SHOT"]},"SANDSHREW":{"charge":["ROCK_TOMB"]},"JIGGLYPUFF":{"charge":["PLAY_ROUGH","BODY_SLAM"]},"ZUBAT":{"charge":["SLUDGE_BOMB","RETURN","FRUSTRATION"]},"GOLBAT":{"charge":["OMINOUS_WIND","RETURN","FRUSTRATION"]},"MEOWTH":{"charge":["BODY_SLAM"]},"PERSIAN":{"charge":["NIGHT_SLASH"]},"POLIWAG":{"charge":["RETURN","FRUSTRATION"]},"POLIWHIRL":{"charge":["SCALD","RETURN","FRUSTRATION"]},"ALAKAZAM":{"charge":["DAZZLING_GLEAM","PSYCHIC"]},"MACHOKE":{"charge":["CROSS_CHOP"]},"PONYTA":{"charge":["FIRE_BLAST"]},"DODUO":{"charge":["SWIFT"]},"DODRIO":{"charge":["AIR_CUTTER"]},"CLOYSTER":{"charge":["BLIZZARD","ICY_WIND"]},"ONIX":{"charge":["IRON_HEAD","ROCK_SLIDE"]},"DROWZEE":{"charge":["RETURN","FRUSTRATION"]},"HYPNO":{"charge":["PSYSHOCK","SHADOW_BALL","RETURN","FRUSTRATION"]},"VOLTORB":{"charge":["SIGNAL_BEAM"]},"CUBONE":{"charge":["RETURN","FRUSTRATION"]},"MAROWAK":{"charge":["RETURN","FRUSTRATION"]},"HITMONLEE":{"charge":["STOMP","BRICK_BREAK"]},"RHYDON":{"charge":["MEGAHORN"]},"CHANSEY":{"charge":["PSYBEAM"]},"TANGELA":{"charge":["POWER_WHIP"]},"KANGASKHAN":{"charge":["BRICK_BREAK","STOMP"]},"SEADRA":{"charge":["BLIZZARD"]},"MAGIKARP":{"charge":["RETURN","FRUSTRATION"]},"EEVEE":{"charge":["BODY_SLAM","LAST_RESORT"]},"VAPOREON":{"charge":["LAST_RESORT"]},"JOLTEON":{"charge":["LAST_RESORT"]},"FLAREON":{"charge":["HEAT_WAVE","LAST_RESORT"]},"OMANYTE":{"charge":["ROCK_TOMB","BRINE"]},"ARTICUNO":{"charge":["HURRICANE"]},"DRATINI":{"charge":["RETURN","FRUSTRATION"]},"DRAGONAIR":{"charge":["RETURN","FRUSTRATION"]},"MEWTWO":{"charge":["SHADOW_BALL","HYPER_BEAM"]},"MEGANIUM":{"charge":["FRENZY_PLANT"]},"TYPHLOSION":{"charge":["BLAST_BURN"]},"CROBAT":{"charge":["RETURN","FRUSTRATION"]},"CLEFFA":{"charge":["PSYCHIC","BODY_SLAM"]},"IGGLYBUFF":{"charge":["BODY_SLAM"]},"AMPHAROS":{"charge":["DRAGON_PULSE"]},"POLITOED":{"charge":["EARTHQUAKE","RETURN","FRUSTRATION"]},"ESPEON":{"charge":["LAST_RESORT"]},"UMBREON":{"charge":["LAST_RESORT"]},"HOUNDOUR":{"charge":["RETURN","FRUSTRATION"]},"HOUNDOOM":{"charge":["RETURN","FRUSTRATION"]},"ELEKID":{"charge":["THUNDERBOLT"]},"MAGBY":{"charge":["FLAMETHROWER"]},"SCEPTILE":{"charge":["FRENZY_PLANT"]},"BLAZIKEN":{"charge":["STONE_EDGE","BLAST_BURN"]},"SWAMPERT":{"charge":["HYDRO_CANNON"]},"RALTS":{"charge":["RETURN","FRUSTRATION"]},"KIRLIA":{"charge":["RETURN","FRUSTRATION"]},"GARDEVOIR":{"charge":["SYNCHRONOISE","RETURN","FRUSTRATION"]},"BRELOOM":{"charge":["GRASS_KNOT"]},"SLAKING":{"charge":["BODY_SLAM"]},"LOUDRED":{"charge":["CRUNCH"]},"SALAMENCE":{"charge":["OUTRAGE"]},"METAGROSS":{"charge":["METEOR_MASH"]},"TORTERRA":{"charge":["FRENZY_PLANT"]},"MAMOSWINE":{"charge":["ANCIENT_POWER"]},"GALLADE":{"charge":["SYNCHRONOISE","RETURN","FRUSTRATION"]},"GASTRODON":{"charge":["EARTHQUAKE"]},"GRIMER":{"charge":["RETURN","FRUSTRATION"]},"KOFFING":{"quick":["ACID_FAST"]},"WEEZING":{"quick":["ACID_FAST"]},"MUK":{"quick":["ACID_FAST","LICK_FAST"],"charge":["RETURN","FRUSTRATION"]},"ARCANINE":{"quick":["BITE_FAST"],"charge":["BULLDOZE","FLAMETHROWER"]},"SHEDINJA":{"quick":["BITE_FAST","STRUGGLE_BUG_FAST"]},"BUTTERFREE":{"quick":["BUG_BITE_FAST"]},"BEEDRILL":{"quick":["BUG_BITE_FAST"]},"PARASECT":{"quick":["BUG_BITE_FAST"]},"VENOMOTH":{"quick":["BUG_BITE_FAST"],"charge":["POISON_FANG"]},"EXEGGUTOR":{"quick":["CONFUSION_FAST"],"charge":["ZEN_HEADBUTT_FAST"]},"FARFETCHD":{"quick":["CUT_FAST"]},"DRAGONITE":{"quick":["DRAGON_BREATH_FAST"],"charge":["DRAGON_CLAW","DRAGON_PULSE","DRACO_METEOR","RETURN","FRUSTRATION"]},"GYARADOS":{"quick":["DRAGON_BREATH_FAST","DRAGON_TAIL_FAST"],"charge":["DRAGON_PULSE","TWISTER","RETURN","FRUSTRATION"]},"NINETALES":{"quick":["EMBER_FAST"],"charge":["FIRE_BLAST","FLAMETHROWER"]},"RAPIDASH":{"quick":["EMBER_FAST"]},"MOLTRES":{"quick":["EMBER_FAST"],"charge":["SKY_ATTACK"]},"CHARIZARD":{"quick":["EMBER_FAST"],"charge":["WING_ATTACK_FAST","FLAMETHROWER","BLAST_BURN"]},"SMOOCHUM":{"quick":["FROST_BREATH_FAST"]},"NIDOKING":{"quick":["FURY_CUTTER_FAST"]},"PINSIR":{"quick":["FURY_CUTTER_FAST"],"charge":["SUBMISSION"]},"KABUTOPS":{"quick":["FURY_CUTTER_FAST"]},"SUICUNE":{"quick":["HIDDEN_POWER_FAST"]},"DEWGONG":{"quick":["ICE_SHARD_FAST"],"charge":["AQUA_JET","ICY_WIND"]},"LAPRAS":{"quick":["ICE_SHARD_FAST"],"charge":["DRAGON_PULSE","ICE_BEAM"]},"DELIBIRD":{"quick":["ICE_SHARD_FAST","QUICK_ATTACK_FAST"]},"PRIMEAPE":{"quick":["KARATE_CHOP_FAST"],"charge":["CROSS_CHOP"]},"MACHAMP":{"quick":["KARATE_CHOP_FAST"],"charge":["CROSS_CHOP","STONE_EDGE","SUBMISSION"]},"HAUNTER":{"quick":["LICK_FAST"],"charge":["SHADOW_BALL"]},"MACHOP":{"quick":["LOW_KICK_FAST"]},"DIGLETT":{"quick":["MUD_SHOT_FAST"]},"DUGTRIO":{"quick":["MUD_SHOT_FAST"]},"POLIWRATH":{"quick":["MUD_SHOT_FAST"],"charge":["SUBMISSION","RETURN","FRUSTRATION"]},"GRAVELER":{"quick":["MUD_SHOT_FAST"],"charge":["ROCK_SLIDE"]},"GOLEM":{"quick":["MUD_SHOT_FAST"],"charge":["ANCIENT_POWER"]},"KINGLER":{"quick":["MUD_SHOT_FAST"]},"SEAKING":{"quick":["POISON_JAB_FAST"],"charge":["ICY_WIND","DRILL_RUN"]},"CLEFABLE":{"quick":["POUND_FAST"]},"JYNX":{"quick":["POUND_FAST"],"charge":["ICE_PUNCH"]},"PIKACHU":{"quick":["PRESENT_FAST"],"charge":["SURF","THUNDER"]},"STARYU":{"quick":["QUICK_ATTACK_FAST"]},"PICHU":{"quick":["QUICK_ATTACK_FAST"]},"STARMIE":{"quick":["QUICK_ATTACK_FAST","TACKLE_FAST"],"charge":["PSYBEAM"]},"PORYGON":{"quick":["QUICK_ATTACK_FAST","TACKLE_FAST","ZEN_HEADBUTT_FAST"],"charge":["DISCHARGE","PSYBEAM","SIGNAL_BEAM"]},"WEEPINBELL":{"quick":["RAZOR_LEAF_FAST"]},"HITMONCHAN":{"quick":["ROCK_SMASH_FAST"],"charge":["BRICK_BREAK"]},"OMASTAR":{"quick":["ROCK_THROW_FAST"],"charge":["ROCK_SLIDE"]},"CHARMELEON":{"quick":["SCRATCH_FAST"],"charge":["RETURN","FRUSTRATION"]},"GENGAR":{"quick":["SHADOW_CLAW_FAST","LICK_FAST"],"charge":["SLUDGE_WAVE","DARK_PULSE","PSYCHIC"]},"TYRANITAR":{"quick":["SMACK_DOWN_FAST"]},"SCYTHER":{"quick":["STEEL_WING_FAST"],"charge":["BUG_BUZZ","RETURN","FRUSTRATION"]},"TOGETIC":{"quick":["STEEL_WING_FAST","ZEN_HEADBUTT_FAST"]},"GASTLY":{"quick":["SUCKER_PUNCH_FAST"],"charge":["OMINOUS_WIND"]},"ELECTRODE":{"quick":["TACKLE_FAST"]},"RAICHU":{"quick":["THUNDER_SHOCK_FAST"],"charge":["THUNDER"]},"MAGNETON":{"quick":["THUNDER_SHOCK_FAST"],"charge":["DISCHARGE"]},"ZAPDOS":{"quick":["THUNDER_SHOCK_FAST"],"charge":["DISCHARGE"]},"SEEL":{"quick":["WATER_GUN_FAST"],"charge":["AQUA_JET"]},"FERALIGATR":{"quick":["WATER_GUN_FAST"],"charge":["HYDRO_CANNON"]},"KINGDRA":{"quick":["WATER_GUN_FAST"]},"PIDGEOT":{"quick":["WING_ATTACK_FAST"],"charge":["AIR_CUTTER"]},"SNORLAX":{"quick":["YAWN_FAST"],"charge":["BODY_SLAM","RETURN","FRUSTRATION"]},"TOGEPI":{"quick":["ZEN_HEADBUTT_FAST"]}}
 
 /***/ }),
 
@@ -14650,7 +14686,7 @@ module.exports = function () {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"stat":"stat__2IBkB"};
+module.exports = {"stat":"stat__2IBkB","statsgrid":"statsgrid__1H2SV"};
 
 /***/ }),
 
