@@ -4,7 +4,7 @@ import LayoutGrid from 'preact-material-components/LayoutGrid';
 import 'preact-material-components/LayoutGrid/style.css';
 
 class PokemonList extends Component {
-	render({ pokemon, moves, onChoose, chooseIcon }, _) {
+	render({ pokemon, moves, ...rest }, _) {
 		let list = [];
 		for (let id in pokemon) {
 			let p = pokemon[id];
@@ -22,9 +22,8 @@ class PokemonList extends Component {
 						id={p.pokemonId}
 						moveList={moves}
 						chargeMoves={p.cinematicMoves}
-						onChoose={onChoose}
-						chooseIcon={chooseIcon}
 						{...p}
+						{...rest}
 					/>
 				</LayoutGrid.Cell>
 			))}

@@ -48,11 +48,7 @@ class EffectivenessMatrix extends Component {
 		POKEMON_TYPE_FAIRY: 17
 	}
 
-	state = {
-		effectiveness: {}
-	}
-
-	render({ pokemon, effectiveness }) {
+	render({ pokemon, effectiveness, selectedMoves }) {
 		let defender = {
 			POKEMON_TYPE_NORMAL: [],
 			POKEMON_TYPE_FIRE: [],
@@ -73,6 +69,7 @@ class EffectivenessMatrix extends Component {
 			POKEMON_TYPE_STEEL: [],
 			POKEMON_TYPE_FAIRY: []
 		};
+		let attacker = JSON.parse(JSON.stringify(defender));
 
 		for (let name in pokemon) {
 			let p = pokemon[name];
@@ -86,15 +83,31 @@ class EffectivenessMatrix extends Component {
 			}
 		}
 
+		for (let move of selectedMoves) {
+			for (let defender in effectiveness) {
+				attacker[defender].push(effectiveness[move.type].attackScalar[this.mapped[defender]]);
+			}
+		}
+
 		return (
 			<div class="effectiveness">
 				<h2>Effectiveness</h2>
 				<LayoutGrid>
+			<h3>Defense</h3>
 					<LayoutGrid.Inner>
 						{this.order.map(type => (
 							<LayoutGrid.Cell desktopCols="4" tabletCols="4" phoneCols="1" className={style.effectiveness}>
 								<TypeIcon type={type} />
 								<Effectiveness values={defender[type]} />
+							</LayoutGrid.Cell>
+						))}
+					</LayoutGrid.Inner>
+			<h3>Attack</h3>
+					<LayoutGrid.Inner>
+						{this.order.map(type => (
+							<LayoutGrid.Cell desktopCols="4" tabletCols="4" phoneCols="1" className={style.effectiveness}>
+								<TypeIcon type={type} />
+								<Effectiveness values={attacker[type]} />
 							</LayoutGrid.Cell>
 						))}
 					</LayoutGrid.Inner>

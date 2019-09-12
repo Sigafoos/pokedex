@@ -20,29 +20,14 @@ const Move = ({ move, onSelect, selected, fastEnergy, quick, charge, legacy }) =
 	if (quick) stats = (<Fragment>{displayName}{legacyText}: {power} / {energy} / {turns} / {Math.round(power/turns*100)/100} / {Math.round(energy/turns*100)/100}</Fragment>);
 	if (charge) stats = (<Fragment>{displayName}{legacyText}: {power} / {energy} / {Math.round(power/energy*100)/100}{turnsToCharge}</Fragment>);
 
+	let icon;
+	if (onSelect) icon = (<Icon class={style.icon}>{iconName}</Icon>);
+
 	return (
-		<div onClick={() => onSelect({ move, fast: quick })}>
-			<Icon class={style.icon}>{iconName}</Icon>
+		<div onClick={() => onSelect && onSelect({ move, fast: quick })}>
+			{icon}
 			<TypeIcon type={move.type} />
 			{stats}
-		</div>
-	);
-}
-
-const ChargeMove = ({ move, onSelect, selected, fastEnergy, legacy }) => {
-	let displayName = format(move.uniqueId),
-	power = move.power,
-	energy = Math.abs(move.energyDelta);
-	let iconName = (selected) ? 'check_box' : 'check_box_outline_blank',
-		turns = fastEnergy && (" (" + Math.ceil(energy/fastEnergy) + ")"),
-		legacyText = (legacy) ? (<sup title="legacy">(L)</sup>) : undefined;
-
-	return (
-		<div onClick={() => onSelect({ move })}>
-			<Icon class={style.icon}>{iconName}</Icon>
-			<TypeIcon type={move.type} />
-			
-			{turns}
 		</div>
 	);
 }
@@ -51,7 +36,7 @@ const format = move => {
 	if (move.endsWith('_FAST')) {
 		move = move.substr(0, move.length-5);
 	}
-	move = move.replace('_', ' ');
+	move = move.replace(/_/g, ' ');
 	return titleCase(move);
 }
 

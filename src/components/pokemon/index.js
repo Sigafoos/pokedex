@@ -6,7 +6,7 @@ import TypeIcon from '../typeicon';
 import Card from 'preact-material-components/Card';
 import 'preact-material-components/Card/style.css';
 
-const Pokemon = ({ id, types, moveList, quickMoves, stats, chargeMoves, legacyMoves, alolan, onChoose, chooseIcon }) => (
+const Pokemon = ({ id, types, moveList, quickMoves, stats, chargeMoves, legacyMoves, alolan, onChoose, chooseIcon, onMoveSelect, onMoveUnselect }) => (
 	<Card class={style.card}>
 		<div class="card-header">
 			<h2 class="mdc-typography--title">{id} {alolan && (<span>(Alolan)</span>)}</h2>
@@ -18,7 +18,7 @@ const Pokemon = ({ id, types, moveList, quickMoves, stats, chargeMoves, legacyMo
 
 		<Stats stats={stats} />
 
-		<MoveList quickMoves={quickMoves} chargeMoves={chargeMoves} legacyMoves={legacyMoves} list={moveList} />
+		<MoveList quickMoves={quickMoves} chargeMoves={chargeMoves} legacyMoves={legacyMoves} list={moveList} onMoveSelect={onMoveSelect} onMoveUnselect={onMoveUnselect} />
 
 		<Card.Actions>
 			<Card.ActionIcons>

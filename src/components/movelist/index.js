@@ -10,28 +10,38 @@ class MoveList extends Component {
 	}
 
 	onSelect = ({ move, fast }) => {
+		let { onMoveSelect, onMoveUnselect } = this.props,
+			moveName = move.uniqueId;
+
 		if (fast) {
-			if (move.uniqueId == this.state.selectedFast) {
+			let { selectedFast } = this.state;
+			if (move.uniqueId == selectedFast) {
+				onMoveUnselect(moveName);
 				this.setState({ selectedFast: undefined });
 			} else {
-				this.setState({ selectedFast: move.uniqueId });
+				onMoveSelect(moveName);
+				selectedFast && onMoveUnselect(selectedFast);
+				this.setState({ selectedFast: moveName });
 			}
 		} else {
 			let charged = this.state.selectedCharge;
-			let i = charged.indexOf(move.uniqueId);
+			let i = charged.indexOf(moveName);
 			if (i !== -1) {
+				onMoveUnselect(moveName);
 				charged.splice(i, 1);
 			} else {
-				charged.push(move.uniqueId);
+				charged.push(moveName);
+				onMoveSelect(moveName)
 				if (charged.length > 2) {
-					charged.shift();
+					let unselected = charged.shift();
+					onMoveUnselect(unselected);
 				}
 			}
 			this.setState({ selectedCharge: charged });
 		}
 	}
 
-	render({ list, quickMoves, chargeMoves, legacyMoves = {} }, { selectedFast, selectedCharge }) {
+	render({ list, quickMoves, chargeMoves, legacyMoves = {}, onMoveSelect }, { selectedFast, selectedCharge }) {
 		let { charge: legacyCharge, quick: legacyQuick } = legacyMoves;
 		let fastMove;
 		if (selectedFast) {
@@ -48,7 +58,7 @@ class MoveList extends Component {
 						{quickMoves.map(move => (
 							<Move quick
 								move={list[move]}
-								onSelect={this.onSelect}
+								onSelect={onMoveSelect && this.onSelect}
 								selected={selectedFast && move === selectedFast}
 								legacy={legacyQuick && legacyQuick.indexOf(move) !== -1}
 							/>
@@ -63,7 +73,7 @@ class MoveList extends Component {
 						{chargeMoves.map(move => (
 							<Move charge
 								move={list[move]}
-								onSelect={this.onSelect}
+								onSelect={onMoveSelect && this.onSelect}
 								selected={selectedCharge.indexOf(move) !== -1}
 								legacy={legacyCharge && legacyCharge.indexOf(move) !== -1}
 								fastEnergy={fastMove && fastMove.energyDelta}
