@@ -1620,6 +1620,10 @@ var header_Header = function Header() {
 var home_style = __webpack_require__("ZAL5");
 var home_style_default = /*#__PURE__*/__webpack_require__.n(home_style);
 
+// EXTERNAL MODULE: ./data/legacy.json
+var legacy = __webpack_require__("rH/a");
+var legacy_default = /*#__PURE__*/__webpack_require__.n(legacy);
+
 // EXTERNAL MODULE: ./components/filters/style.css
 var filters_style = __webpack_require__("WotE");
 var filters_style_default = /*#__PURE__*/__webpack_require__.n(filters_style);
@@ -2413,6 +2417,7 @@ function pokedex__inherits(subClass, superClass) { if (typeof superClass !== "fu
 
 
 
+
 var gmVersionURL = 'https://raw.githubusercontent.com/pokemongo-dev-contrib/pokemongo-game-master/master/versions/latest-version.txt';
 var gmURL = 'https://raw.githubusercontent.com/pokemongo-dev-contrib/pokemongo-game-master/master/versions/%s/GAME_MASTER.json';
 
@@ -2531,10 +2536,10 @@ var pokedex_Pokedex = function (_Component) {
 						var pokemonSettings = entry.pokemonSettings;
 
 						if (pokemonSettings) {
-							var _name = pokemonSettings.pokemonId;
+							var _name2 = pokemonSettings.pokemonId;
 							pokemonSettings.alolan = false;
 							if (tid.endsWith('ALOLA')) {
-								_name = tid.substr(14);
+								_name2 = tid.substr(14);
 								pokemonSettings.alolan = true;
 							}
 							pokemonSettings.dexNumber = Number(type.substr(1));
@@ -2542,7 +2547,7 @@ var pokedex_Pokedex = function (_Component) {
 							if (pokemonSettings.hasOwnProperty('type2')) {
 								pokemonSettings.types.push(pokemonSettings.type2);
 							}
-							pokemon[_name] = pokemonSettings;
+							pokemon[_name2] = pokemonSettings;
 						}
 				}
 			}
@@ -2560,10 +2565,11 @@ var pokedex_Pokedex = function (_Component) {
 			localStorage.setItem('effectiveness', parsedEffectiveness);
 			localStorage.setItem('version', _this.state.version);
 
+			pokemon = _this.addLegacyMoves(pokemon);
 			var filtered = pokemon;
 			var selected = JSON.parse(localStorage.getItem('selected')) || {};
-			for (var name in selected) {
-				delete filtered[name];
+			for (var _name in selected) {
+				delete filtered[_name];
 			}
 
 			_this.setState({
@@ -2577,10 +2583,11 @@ var pokedex_Pokedex = function (_Component) {
 		}, _this.loadGamemaster = function () {
 			var p = JSON.parse(localStorage.getItem('pokemon')),
 			    selected = JSON.parse(localStorage.getItem('selected')) || {};
+			p = _this.addLegacyMoves(p);
 			var filtered = p;
 
-			for (var name in selected) {
-				delete filtered[name];
+			for (var _name3 in selected) {
+				delete filtered[_name3];
 			}
 
 			_this.setState({
@@ -2591,6 +2598,20 @@ var pokedex_Pokedex = function (_Component) {
 				effectiveness: JSON.parse(localStorage.getItem('effectiveness')),
 				loading: false
 			});
+		}, _this.addLegacyMoves = function (pokemon) {
+			for (name in legacy_default.a) {
+				var _legacy$name = legacy_default.a[name],
+				    quick = _legacy$name.quick,
+				    charge = _legacy$name.charge;
+
+				if (quick) {
+					pokemon[name].quickMoves = pokemon[name].quickMoves.concat(quick);
+				}
+				if (charge) {
+					pokemon[name].cinematicMoves = pokemon[name].cinematicMoves.concat(charge);
+				}
+			}
+			return pokemon;
 		}, _this.idRegexp = /^(\d*)(-?)(\d*)$/, _this.filterPokemon = function (text) {
 			_this.setState({ filter: text });
 			_this.calculateFiltered();
@@ -2604,8 +2625,8 @@ var pokedex_Pokedex = function (_Component) {
     * If any condition fails, the Pokemon is filtered out. Otherwise,
     * it passes.
     */
-			pokemonLoop: for (var name in _this.state.pokemon) {
-				var pokemon = _this.state.pokemon[name],
+			pokemonLoop: for (var _name4 in _this.state.pokemon) {
+				var pokemon = _this.state.pokemon[_name4],
 				    conditions = _this.state.filter.split('&');
 
 				for (var _iterator2 = conditions, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
@@ -2766,7 +2787,7 @@ var pokedex_Pokedex = function (_Component) {
 						continue pokemonLoop;
 					}
 				}
-				filtered[name] = pokemon;
+				filtered[_name4] = pokemon;
 			}
 			_this.setState({ filtered: filtered });
 		}, _this.hoist = function (id) {
@@ -12321,6 +12342,13 @@ module.exports = function (originalModule) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "rH/a":
+/***/ (function(module, exports) {
+
+module.exports = {"BULBASAUR":{"charge":["RETURN","FRUSTRATION"]},"IVYSAUR":{"charge":["RETURN","FRUSTRATION"]},"VENUSAUR":{"charge":["FRENZY_PLANT","RETURN","FRUSTRATION"]},"CHARMANDER":{"charge":["RETURN","FRUSTRATION"]},"SQUIRTLE":{"charge":["RETURN","FRUSTRATION"]},"WARTORTLE":{"charge":["RETURN","FRUSTRATION"]},"BLASTOISE":{"charge":["HYDRO_CANNON","RETURN","FRUSTRATION"]},"RATTATA":{"charge":["RETURN","FRUSTRATION"]},"RATICATE":{"charge":["RETURN","FRUSTRATION"]},"SPEAROW":{"charge":["TWISTER"]},"FEAROW":{"charge":["TWISTER"]},"EKANS":{"charge":["GUNK_SHOT"]},"SANDSHREW":{"charge":["ROCK_TOMB"]},"JIGGLYPUFF":{"charge":["PLAY_ROUGH","BODY_SLAM"]},"ZUBAT":{"charge":["SLUDGE_BOMB","RETURN","FRUSTRATION"]},"GOLBAT":{"charge":["OMINOUS_WIND","RETURN","FRUSTRATION"]},"MEOWTH":{"charge":["BODY_SLAM"]},"PERSIAN":{"charge":["NIGHT_SLASH"]},"POLIWAG":{"charge":["RETURN","FRUSTRATION"]},"POLIWHIRL":{"charge":["SCALD","RETURN","FRUSTRATION"]},"ALAKAZAM":{"charge":["DAZZLING_GLEAM","PSYCHIC"]},"MACHOKE":{"charge":["CROSS_CHOP"]},"PONYTA":{"charge":["FIRE_BLAST"]},"DODUO":{"charge":["SWIFT"]},"DODRIO":{"charge":["AIR_CUTTER"]},"CLOYSTER":{"charge":["BLIZZARD","ICY_WIND"]},"ONIX":{"charge":["IRON_HEAD","ROCK_SLIDE"]},"DROWZEE":{"charge":["RETURN","FRUSTRATION"]},"HYPNO":{"charge":["PSYSHOCK","SHADOW_BALL","RETURN","FRUSTRATION"]},"VOLTORB":{"charge":["SIGNAL_BEAM"]},"CUBONE":{"charge":["RETURN","FRUSTRATION"]},"MAROWAK":{"charge":["RETURN","FRUSTRATION"]},"HITMONLEE":{"charge":["STOMP","BRICK_BREAK"]},"RHYDON":{"charge":["MEGAHORN"]},"CHANSEY":{"charge":["PSYBEAM"]},"TANGELA":{"charge":["POWER_WHIP"]},"KANGASKHAN":{"charge":["BRICK_BREAK","STOMP"]},"SEADRA":{"charge":["BLIZZARD"]},"MAGIKARP":{"charge":["RETURN","FRUSTRATION"]},"EEVEE":{"charge":["BODY_SLAM","LAST_RESORT"]},"VAPOREON":{"charge":["LAST_RESORT"]},"JOLTEON":{"charge":["LAST_RESORT"]},"FLAREON":{"charge":["HEAT_WAVE","LAST_RESORT"]},"OMANYTE":{"charge":["ROCK_TOMB","BRINE"]},"ARTICUNO":{"charge":["HURRICANE"]},"DRATINI":{"charge":["RETURN","FRUSTRATION"]},"DRAGONAIR":{"charge":["RETURN","FRUSTRATION"]},"MEWTWO":{"charge":["SHADOW_BALL","HYPER_BEAM"]},"MEGANIUM":{"charge":["FRENZY_PLANT"]},"TYPHLOSION":{"charge":["BLAST_BURN"]},"CROBAT":{"charge":["RETURN","FRUSTRATION"]},"CLEFFA":{"charge":["PSYCHIC","BODY_SLAM"]},"IGGLYBUFF":{"charge":["BODY_SLAM"]},"AMPHAROS":{"charge":["DRAGON_PULSE"]},"POLITOED":{"charge":["EARTHQUAKE","RETURN","FRUSTRATION"]},"ESPEON":{"charge":["LAST_RESORT"]},"UMBREON":{"charge":["LAST_RESORT"]},"HOUNDOUR":{"charge":["RETURN","FRUSTRATION"]},"HOUNDOOM":{"charge":["RETURN","FRUSTRATION"]},"ELEKID":{"charge":["THUNDERBOLT"]},"MAGBY":{"charge":["FLAMETHROWER"]},"SCEPTILE":{"charge":["FRENZY_PLANT"]},"BLAZIKEN":{"charge":["STONE_EDGE","BLAST_BURN"]},"SWAMPERT":{"charge":["HYDRO_CANNON"]},"RALTS":{"charge":["RETURN","FRUSTRATION"]},"KIRLIA":{"charge":["RETURN","FRUSTRATION"]},"GARDEVOIR":{"charge":["SYNCHRONOISE","RETURN","FRUSTRATION"]},"BRELOOM":{"charge":["GRASS_KNOT"]},"SLAKING":{"charge":["BODY_SLAM"]},"LOUDRED":{"charge":["CRUNCH"]},"SALAMENCE":{"charge":["OUTRAGE"]},"METAGROSS":{"charge":["METEOR_MASH"]},"TORTERRA":{"charge":["FRENZY_PLANT"]},"MAMOSWINE":{"charge":["ANCIENT_POWER"]},"GALLADE":{"charge":["SYNCHRONOISE","RETURN","FRUSTRATION"]},"GASTRODON":{"charge":["EARTHQUAKE"]},"GRIMER":{"charge":["RETURN","FRUSTRATION"]},"KOFFING":{"fast":["ACID_FAST"]},"WEEZING":{"fast":["ACID_FAST"]},"MUK":{"fast":["ACID_FAST","LICK_FAST"],"charge":["RETURN","FRUSTRATION"]},"ARCANINE":{"fast":["BITE_FAST"],"charge":["BULLDOZE","FLAMETHROWER"]},"SHEDINJA":{"fast":["BITE_FAST","STRUGGLE_BUG_FAST"]},"BUTTERFREE":{"fast":["BUG_BITE_FAST"]},"BEEDRILL":{"fast":["BUG_BITE_FAST"]},"PARASECT":{"fast":["BUG_BITE_FAST"]},"VENOMOTH":{"fast":["BUG_BITE_FAST"],"charge":["POISON_FANG"]},"EXEGGUTOR":{"fast":["CONFUSION_FAST"],"charge":["ZEN_HEADBUTT_FAST"]},"FARFETCH'D":{"fast":["CUT_FAST"]},"DRAGONITE":{"fast":["DRAGON_BREATH_FAST"],"charge":["DRAGON_CLAW","DRAGON_PULSE","DRACO_METEOR","RETURN","FRUSTRATION"]},"GYARADOS":{"fast":["DRAGON_BREATH_FAST","DRAGON_TAIL_FAST"],"charge":["DRAGON_PULSE","TWISTER","RETURN","FRUSTRATION"]},"NINETALES":{"fast":["EMBER_FAST"],"charge":["FIRE_BLAST","FLAMETHROWER"]},"RAPIDASH":{"fast":["EMBER_FAST"]},"MOLTRES":{"fast":["EMBER_FAST"],"charge":["SKY_ATTACK"]},"CHARIZARD":{"fast":["EMBER_FAST"],"charge":["WING_ATTACK_FAST","FLAMETHROWER","BLAST_BURN"]},"SMOOCHUM":{"fast":["FROST_BREATH_FAST"]},"NIDOKING":{"fast":["FURY_CUTTER_FAST"]},"PINSIR":{"fast":["FURY_CUTTER_FAST"],"charge":["SUBMISSION"]},"KABUTOPS":{"fast":["FURY_CUTTER_FAST"]},"SUICUNE":{"fast":["HIDDEN_POWER_FAST"]},"DEWGONG":{"fast":["ICE_SHARD_FAST"],"charge":["AQUA_JET","ICY_WIND"]},"LAPRAS":{"fast":["ICE_SHARD_FAST"],"charge":["DRAGON_PULSE","ICE_BEAM"]},"DELIBIRD":{"fast":["ICE_SHARD_FAST","QUICK_ATTACK_FAST"]},"PRIMEAPE":{"fast":["KARATE_CHOP_FAST"],"charge":["CROSS_CHOP"]},"MACHAMP":{"fast":["KARATE_CHOP_FAST"],"charge":["CROSS_CHOP","STONE_EDGE","SUBMISSION"]},"HAUNTER":{"fast":["LICK_FAST"],"charge":["SHADOW_BALL"]},"MACHOP":{"fast":["LOW_KICK_FAST"]},"DIGLETT":{"fast":["MUD_SHOT_FAST"]},"DUGTRIO":{"fast":["MUD_SHOT_FAST"]},"POLIWRATH":{"fast":["MUD_SHOT_FAST"],"charge":["SUBMISSION","RETURN","FRUSTRATION"]},"GRAVELER":{"fast":["MUD_SHOT_FAST"],"charge":["ROCK_SLIDE"]},"GOLEM":{"fast":["MUD_SHOT_FAST"],"charge":["ANCIENT_POWER"]},"KINGLER":{"fast":["MUD_SHOT_FAST"]},"SEAKING":{"fast":["POISON_JAB_FAST"],"charge":["ICY_WIND","DRILL_RUN"]},"CLEFABLE":{"fast":["POUND_FAST"]},"JYNX":{"fast":["POUND_FAST"],"charge":["ICE_PUNCH"]},"PIKACHU":{"fast":["PRESENT_FAST"],"charge":["SURF","THUNDER"]},"STARYU":{"fast":["QUICK_ATTACK_FAST"]},"PICHU":{"fast":["QUICK_ATTACK_FAST"]},"STARMIE":{"fast":["QUICK_ATTACK_FAST","TACKLE_FAST"],"charge":["PSYBEAM"]},"PORYGON":{"fast":["QUICK_ATTACK_FAST","TACKLE_FAST","ZEN_HEADBUTT_FAST"],"charge":["DISCHARGE","PSYBEAM","SIGNAL_BEAM"]},"WEEPINBELL":{"fast":["RAZOR_LEAF_FAST"]},"HITMONCHAN":{"fast":["ROCK_SMASH_FAST"],"charge":["BRICK_BREAK"]},"OMASTAR":{"fast":["ROCK_THROW_FAST"],"charge":["ROCK_SLIDE"]},"CHARMELEON":{"fast":["SCRATCH_FAST"],"charge":["RETURN","FRUSTRATION"]},"GENGAR":{"fast":["SHADOW_CLAW_FAST","LICK_FAST"],"charge":["SLUDGE_WAVE","DARK_PULSE","PSYCHIC"]},"TYRANITAR":{"fast":["SMACK_DOWN_FAST"]},"SCYTHER":{"fast":["STEEL_WING_FAST"],"charge":["BUG_BUZZ","RETURN","FRUSTRATION"]},"TOGETIC":{"fast":["STEEL_WING_FAST","ZEN_HEADBUTT_FAST"]},"GASTLY":{"fast":["SUCKER_PUNCH_FAST"],"charge":["OMINOUS_WIND"]},"ELECTRODE":{"fast":["TACKLE_FAST"]},"RAICHU":{"fast":["THUNDER_SHOCK_FAST"],"charge":["THUNDER"]},"MAGNETON":{"fast":["THUNDER_SHOCK_FAST"],"charge":["DISCHARGE"]},"ZAPDOS":{"fast":["THUNDER_SHOCK_FAST"],"charge":["DISCHARGE"]},"SEEL":{"fast":["WATER_GUN_FAST"],"charge":["AQUA_JET"]},"FERALIGATR":{"fast":["WATER_GUN_FAST"],"charge":["HYDRO_CANNON"]},"KINGDRA":{"fast":["WATER_GUN_FAST"]},"PIDGEOT":{"fast":["WING_ATTACK_FAST"],"charge":["AIR_CUTTER"]},"SNORLAX":{"fast":["YAWN_FAST"],"charge":["BODY_SLAM","RETURN","FRUSTRATION"]},"TOGEPI":{"fast":["ZEN_HEADBUTT_FAST"]}}
 
 /***/ }),
 
