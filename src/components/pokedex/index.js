@@ -166,6 +166,7 @@ class Pokedex extends Component {
 
 	addLegacyMoves = pokemon => {
 		for (name in legacy) {
+			pokemon[name].legacyMoves = legacy[name];
 			let { quick, charge } = legacy[name];
 			if (quick) {
 				pokemon[name].quickMoves = pokemon[name].quickMoves.concat(quick);

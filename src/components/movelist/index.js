@@ -31,7 +31,8 @@ class MoveList extends Component {
 		}
 	}
 
-	render({ list, quickMoves, chargeMoves }, { selectedFast, selectedCharge }) {
+	render({ list, quickMoves, chargeMoves, legacyMoves = {} }, { selectedFast, selectedCharge }) {
+		let { charge: legacyCharge, quick: legacyQuick } = legacyMoves;
 		let fastMove;
 		if (selectedFast) {
 			fastMove = list[selectedFast];
@@ -49,6 +50,7 @@ class MoveList extends Component {
 								move={list[move]}
 								onSelect={this.onSelect}
 								selected={selectedFast && move === selectedFast}
+								legacy={legacyQuick && legacyQuick.indexOf(move) !== -1}
 							/>
 						))}
 						<Typography caption>damage / energy / turns / DPT / EPT</Typography>
@@ -63,6 +65,7 @@ class MoveList extends Component {
 								move={list[move]}
 								onSelect={this.onSelect}
 								selected={selectedCharge.indexOf(move) !== -1}
+								legacy={legacyCharge && legacyCharge.indexOf(move) !== -1}
 								fastEnergy={fastMove && fastMove.energyDelta}
 							/>
 						))}

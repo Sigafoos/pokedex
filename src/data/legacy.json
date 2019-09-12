@@ -231,225 +231,225 @@
 		"charge": ["RETURN", "FRUSTRATION"]
 	},
 	"KOFFING": {
-		"fast": ["ACID_FAST"]
+		"quick": ["ACID_FAST"]
 	},
 	"WEEZING": {
-		"fast": ["ACID_FAST"]
+		"quick": ["ACID_FAST"]
 	},
 	"MUK": {
-		"fast": ["ACID_FAST", "LICK_FAST"],
+		"quick": ["ACID_FAST", "LICK_FAST"],
 		"charge": ["RETURN", "FRUSTRATION"]
 	},
 	"ARCANINE": {
-		"fast": ["BITE_FAST"],
+		"quick": ["BITE_FAST"],
 		"charge": ["BULLDOZE", "FLAMETHROWER"]
 	},
 	"SHEDINJA": {
-		"fast": ["BITE_FAST", "STRUGGLE_BUG_FAST"]
+		"quick": ["BITE_FAST", "STRUGGLE_BUG_FAST"]
 	},
 	"BUTTERFREE": {
-		"fast": ["BUG_BITE_FAST"]
+		"quick": ["BUG_BITE_FAST"]
 	},
 	"BEEDRILL": {
-		"fast": ["BUG_BITE_FAST"]
+		"quick": ["BUG_BITE_FAST"]
 	},
 	"PARASECT": {
-		"fast": ["BUG_BITE_FAST"]
+		"quick": ["BUG_BITE_FAST"]
 	},
 	"VENOMOTH": {
-		"fast": ["BUG_BITE_FAST"],
+		"quick": ["BUG_BITE_FAST"],
 		"charge": ["POISON_FANG"]
 	},
 	"EXEGGUTOR": {
-		"fast": ["CONFUSION_FAST"],
+		"quick": ["CONFUSION_FAST"],
 		"charge": ["ZEN_HEADBUTT_FAST"]
 	},
-	"FARFETCH'D": {
-		"fast": ["CUT_FAST"]
+	"FARFETCHD": {
+		"quick": ["CUT_FAST"]
 	},
 	"DRAGONITE": {
-		"fast": ["DRAGON_BREATH_FAST"],
+		"quick": ["DRAGON_BREATH_FAST"],
 		"charge": ["DRAGON_CLAW", "DRAGON_PULSE", "DRACO_METEOR", "RETURN", "FRUSTRATION"]
 	},
 	"GYARADOS": {
-		"fast": ["DRAGON_BREATH_FAST", "DRAGON_TAIL_FAST"],
+		"quick": ["DRAGON_BREATH_FAST", "DRAGON_TAIL_FAST"],
 		"charge": ["DRAGON_PULSE", "TWISTER", "RETURN", "FRUSTRATION"]
 	},
 	"NINETALES": {
-		"fast": ["EMBER_FAST"],
+		"quick": ["EMBER_FAST"],
 		"charge": ["FIRE_BLAST", "FLAMETHROWER"]
 	},
 	"RAPIDASH": {
-		"fast": ["EMBER_FAST"]
+		"quick": ["EMBER_FAST"]
 	},
 	"MOLTRES": {
-		"fast": ["EMBER_FAST"],
+		"quick": ["EMBER_FAST"],
 		"charge": ["SKY_ATTACK"]
 	},
 	"CHARIZARD": {
-		"fast": ["EMBER_FAST"],
+		"quick": ["EMBER_FAST"],
 		"charge": ["WING_ATTACK_FAST", "FLAMETHROWER", "BLAST_BURN"]
 	},
 	"SMOOCHUM": {
-		"fast": ["FROST_BREATH_FAST"]
+		"quick": ["FROST_BREATH_FAST"]
 	},
 	"NIDOKING": {
-		"fast": ["FURY_CUTTER_FAST"]
+		"quick": ["FURY_CUTTER_FAST"]
 	},
 	"PINSIR": {
-		"fast": ["FURY_CUTTER_FAST"],
+		"quick": ["FURY_CUTTER_FAST"],
 		"charge": ["SUBMISSION"]
 	},
 	"KABUTOPS": {
-		"fast": ["FURY_CUTTER_FAST"]
+		"quick": ["FURY_CUTTER_FAST"]
 	},
 	"SUICUNE": {
-		"fast": ["HIDDEN_POWER_FAST"]
+		"quick": ["HIDDEN_POWER_FAST"]
 	},
 	"DEWGONG": {
-		"fast": ["ICE_SHARD_FAST"],
+		"quick": ["ICE_SHARD_FAST"],
 		"charge": ["AQUA_JET", "ICY_WIND"]
 	},
 	"LAPRAS": {
-		"fast": ["ICE_SHARD_FAST"],
+		"quick": ["ICE_SHARD_FAST"],
 		"charge": ["DRAGON_PULSE", "ICE_BEAM"]
 	},
 	"DELIBIRD": {
-		"fast": ["ICE_SHARD_FAST", "QUICK_ATTACK_FAST"]
+		"quick": ["ICE_SHARD_FAST", "QUICK_ATTACK_FAST"]
 	},
 	"PRIMEAPE": {
-		"fast": ["KARATE_CHOP_FAST"],
+		"quick": ["KARATE_CHOP_FAST"],
 		"charge": ["CROSS_CHOP"]
 	},
 	"MACHAMP": {
-		"fast": ["KARATE_CHOP_FAST"],
+		"quick": ["KARATE_CHOP_FAST"],
 		"charge": ["CROSS_CHOP", "STONE_EDGE", "SUBMISSION"]
 	},
 	"HAUNTER": {
-		"fast": ["LICK_FAST"],
+		"quick": ["LICK_FAST"],
 		"charge": ["SHADOW_BALL"]
 	},
 	"MACHOP": {
-		"fast": ["LOW_KICK_FAST"]
+		"quick": ["LOW_KICK_FAST"]
 	},
 	"DIGLETT": {
-		"fast": ["MUD_SHOT_FAST"]
+		"quick": ["MUD_SHOT_FAST"]
 	},
 	"DUGTRIO": {
-		"fast": ["MUD_SHOT_FAST"]
+		"quick": ["MUD_SHOT_FAST"]
 	},
 	"POLIWRATH": {
-		"fast": ["MUD_SHOT_FAST"],
+		"quick": ["MUD_SHOT_FAST"],
 		"charge": ["SUBMISSION", "RETURN", "FRUSTRATION"]
 	},
 	"GRAVELER": {
-		"fast": ["MUD_SHOT_FAST"],
+		"quick": ["MUD_SHOT_FAST"],
 		"charge": ["ROCK_SLIDE"]
 	},
 	"GOLEM": {
-		"fast": ["MUD_SHOT_FAST"],
+		"quick": ["MUD_SHOT_FAST"],
 		"charge": ["ANCIENT_POWER"]
 	},
 	"KINGLER": {
-		"fast": ["MUD_SHOT_FAST"]
+		"quick": ["MUD_SHOT_FAST"]
 	},
 	"SEAKING": {
-		"fast": ["POISON_JAB_FAST"],
+		"quick": ["POISON_JAB_FAST"],
 		"charge": ["ICY_WIND", "DRILL_RUN"]
 	},
 	"CLEFABLE": {
-		"fast": ["POUND_FAST"]
+		"quick": ["POUND_FAST"]
 	},
 	"JYNX": {
-		"fast": ["POUND_FAST"],
+		"quick": ["POUND_FAST"],
 		"charge": ["ICE_PUNCH"]
 	},
 	"PIKACHU": {
-		"fast": ["PRESENT_FAST"],
+		"quick": ["PRESENT_FAST"],
 		"charge": ["SURF", "THUNDER"]
 	},
 	"STARYU": {
-		"fast": ["QUICK_ATTACK_FAST"]
+		"quick": ["QUICK_ATTACK_FAST"]
 	},
 	"PICHU": {
-		"fast": ["QUICK_ATTACK_FAST"]
+		"quick": ["QUICK_ATTACK_FAST"]
 	},
 	"STARMIE": {
-		"fast": ["QUICK_ATTACK_FAST", "TACKLE_FAST"],
+		"quick": ["QUICK_ATTACK_FAST", "TACKLE_FAST"],
 		"charge": ["PSYBEAM"]
 	},
 	"PORYGON": {
-		"fast": ["QUICK_ATTACK_FAST", "TACKLE_FAST", "ZEN_HEADBUTT_FAST"],
+		"quick": ["QUICK_ATTACK_FAST", "TACKLE_FAST", "ZEN_HEADBUTT_FAST"],
 		"charge": ["DISCHARGE", "PSYBEAM", "SIGNAL_BEAM"]
 	},
 	"WEEPINBELL": {
-		"fast": ["RAZOR_LEAF_FAST"]
+		"quick": ["RAZOR_LEAF_FAST"]
 	},
 	"HITMONCHAN": {
-		"fast": ["ROCK_SMASH_FAST"],
+		"quick": ["ROCK_SMASH_FAST"],
 		"charge": ["BRICK_BREAK"]
 	},
 	"OMASTAR": {
-		"fast": ["ROCK_THROW_FAST"],
+		"quick": ["ROCK_THROW_FAST"],
 		"charge": ["ROCK_SLIDE"]
 	},
 	"CHARMELEON": {
-		"fast": ["SCRATCH_FAST"],
+		"quick": ["SCRATCH_FAST"],
 		"charge": ["RETURN", "FRUSTRATION"]
 	},
 	"GENGAR": {
-		"fast": ["SHADOW_CLAW_FAST", "LICK_FAST"],
+		"quick": ["SHADOW_CLAW_FAST", "LICK_FAST"],
 		"charge": ["SLUDGE_WAVE", "DARK_PULSE", "PSYCHIC"]
 	},
 	"TYRANITAR": {
-		"fast": ["SMACK_DOWN_FAST"]
+		"quick": ["SMACK_DOWN_FAST"]
 	},
 	"SCYTHER": {
-		"fast": ["STEEL_WING_FAST"],
+		"quick": ["STEEL_WING_FAST"],
 		"charge": ["BUG_BUZZ", "RETURN", "FRUSTRATION"]
 	},
 	"TOGETIC": {
-		"fast": ["STEEL_WING_FAST", "ZEN_HEADBUTT_FAST"]
+		"quick": ["STEEL_WING_FAST", "ZEN_HEADBUTT_FAST"]
 	},
 	"GASTLY": {
-		"fast": ["SUCKER_PUNCH_FAST"],
+		"quick": ["SUCKER_PUNCH_FAST"],
 		"charge": ["OMINOUS_WIND"]
 	},
 	"ELECTRODE": {
-		"fast": ["TACKLE_FAST"]
+		"quick": ["TACKLE_FAST"]
 	},
 	"RAICHU": {
-		"fast": ["THUNDER_SHOCK_FAST"],
+		"quick": ["THUNDER_SHOCK_FAST"],
 		"charge": ["THUNDER"]
 	},
 	"MAGNETON": {
-		"fast": ["THUNDER_SHOCK_FAST"],
+		"quick": ["THUNDER_SHOCK_FAST"],
 		"charge": ["DISCHARGE"]
 	},
 	"ZAPDOS": {
-		"fast": ["THUNDER_SHOCK_FAST"],
+		"quick": ["THUNDER_SHOCK_FAST"],
 		"charge": ["DISCHARGE"]
 	},
 	"SEEL": {
-		"fast": ["WATER_GUN_FAST"],
+		"quick": ["WATER_GUN_FAST"],
 		"charge": ["AQUA_JET"]
 	},
 	"FERALIGATR": {
-		"fast": ["WATER_GUN_FAST"],
+		"quick": ["WATER_GUN_FAST"],
 		"charge": ["HYDRO_CANNON"]
 	},
 	"KINGDRA": {
-		"fast": ["WATER_GUN_FAST"]
+		"quick": ["WATER_GUN_FAST"]
 	},
 	"PIDGEOT": {
-		"fast": ["WING_ATTACK_FAST"],
+		"quick": ["WING_ATTACK_FAST"],
 		"charge": ["AIR_CUTTER"]
 	},
 	"SNORLAX": {
-		"fast": ["YAWN_FAST"],
+		"quick": ["YAWN_FAST"],
 		"charge": ["BODY_SLAM", "RETURN", "FRUSTRATION"]
 	},
 	"TOGEPI": {
-		"fast": ["ZEN_HEADBUTT_FAST"]
+		"quick": ["ZEN_HEADBUTT_FAST"]
 	}
 }
