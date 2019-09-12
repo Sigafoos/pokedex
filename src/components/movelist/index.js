@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import { QuickMove, ChargeMove } from '../moves';
+import Move from '../moves';
 import Typography from 'preact-material-components/Typography';
 import 'preact-material-components/Typography/style.css';
 
@@ -46,7 +46,7 @@ class MoveList extends Component {
 					<div class="quick">
 						<h4>Quick</h4>
 						{quickMoves.map(move => (
-							<QuickMove
+							<Move quick
 								move={list[move]}
 								onSelect={this.onSelect}
 								selected={selectedFast && move === selectedFast}
@@ -61,7 +61,7 @@ class MoveList extends Component {
 					<div class="charge">
 						<h4>Charge</h4>
 						{chargeMoves.map(move => (
-							<ChargeMove
+							<Move charge
 								move={list[move]}
 								onSelect={this.onSelect}
 								selected={selectedCharge.indexOf(move) !== -1}
