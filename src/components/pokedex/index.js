@@ -345,11 +345,11 @@ class Pokedex extends Component {
 			<div>
 				<LayoutGrid>
 					<LayoutGrid.Inner>
-						<LayoutGrid.Cell desktopCols="2" tabletCols="2" phoneCols="4">
+						<LayoutGrid.Cell desktopCols="3" tabletCols="2" phoneCols="4">
 							<EffectivenessMatrix pokemon={selected} effectiveness={effectiveness} />
 						</LayoutGrid.Cell>
 
-						<LayoutGrid.Cell desktopCols="10" tabletCols="6" phoneCols="4">
+						<LayoutGrid.Cell desktopCols="9" tabletCols="6" phoneCols="4">
 							{Object.keys(selected).length > 0 && (<PokemonList pokemon={selected} moves={moves} onChoose={this.unhoist} chooseIcon="remove_circle" />)}
 							<Filters filterPokemon={this.filterPokemon} />
 							{loading && (<Circular />)

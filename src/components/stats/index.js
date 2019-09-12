@@ -6,9 +6,7 @@ import Typography from 'preact-material-components/Typography';
 import 'preact-material-components/Typography/style.css';
 
 const Stats = ({ stats }) => (
-	<div class="stats">
-	<LayoutGrid>
-		<LayoutGrid.Inner>
+		<LayoutGrid.Inner className={style.statsgrid}>
 			<LayoutGrid.Cell className={style.stat} desktopCols="4" phoneCols="1">
 				<div>{stats.baseAttack}</div>
 				<Typography caption>attack</Typography>
@@ -22,8 +20,6 @@ const Stats = ({ stats }) => (
 				<Typography caption>stamina</Typography>
 			</LayoutGrid.Cell>
 		</LayoutGrid.Inner>
-	</LayoutGrid>
-	</div>
 );
 
 export default Stats;

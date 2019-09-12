@@ -15,7 +15,6 @@ class PokemonList extends Component {
 
 		return (
 			<div id="pokemonlist">
-				<LayoutGrid>
 					<LayoutGrid.Inner>
 			{list.map(p => (
 				<LayoutGrid.Cell desktopCols="3" tabletCols="4" phoneCols="4">
@@ -30,7 +29,6 @@ class PokemonList extends Component {
 				</LayoutGrid.Cell>
 			))}
 					</LayoutGrid.Inner>
-				</LayoutGrid>
 			</div>
 		);
 	}
