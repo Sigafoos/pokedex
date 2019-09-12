@@ -1826,53 +1826,21 @@ var moves_Move = function Move(_ref) {
 		turnsToCharge
 	);
 
+	var icon = void 0;
+	if (onSelect) icon = Object(preact_min["h"])(
+		Icon_default.a,
+		{ 'class': moves_style_default.a.icon },
+		iconName
+	);
+
 	return Object(preact_min["h"])(
 		'div',
 		{ onClick: function onClick() {
-				return onSelect({ move: move, fast: true });
+				return onSelect && onSelect({ move: move, fast: quick });
 			} },
-		Object(preact_min["h"])(
-			Icon_default.a,
-			{ 'class': moves_style_default.a.icon },
-			iconName
-		),
+		icon,
 		Object(preact_min["h"])(typeicon, { type: move.type }),
 		stats
-	);
-};
-
-var _ref4 = Object(preact_min["h"])(
-	'sup',
-	{ title: 'legacy' },
-	'(L)'
-);
-
-var moves_ChargeMove = function ChargeMove(_ref3) {
-	var move = _ref3.move,
-	    onSelect = _ref3.onSelect,
-	    selected = _ref3.selected,
-	    fastEnergy = _ref3.fastEnergy,
-	    legacy = _ref3.legacy;
-
-	var displayName = moves_format(move.uniqueId),
-	    power = move.power,
-	    energy = Math.abs(move.energyDelta);
-	var iconName = selected ? 'check_box' : 'check_box_outline_blank',
-	    turns = fastEnergy && " (" + Math.ceil(energy / fastEnergy) + ")",
-	    legacyText = legacy ? _ref4 : undefined;
-
-	return Object(preact_min["h"])(
-		'div',
-		{ onClick: function onClick() {
-				return onSelect({ move: move });
-			} },
-		Object(preact_min["h"])(
-			Icon_default.a,
-			{ 'class': moves_style_default.a.icon },
-			iconName
-		),
-		Object(preact_min["h"])(typeicon, { type: move.type }),
-		turns
 	);
 };
 
@@ -1880,7 +1848,7 @@ var moves_format = function format(move) {
 	if (move.endsWith('_FAST')) {
 		move = move.substr(0, move.length - 5);
 	}
-	move = move.replace('_', ' ');
+	move = move.replace(/_/g, ' ');
 	return titlecase(move);
 };
 
@@ -1907,7 +1875,7 @@ function movelist__inherits(subClass, superClass) { if (typeof superClass !== "f
 
 
 
-var movelist__ref4 = Object(preact_min["h"])(
+var _ref4 = Object(preact_min["h"])(
 	'h3',
 	null,
 	'Moves'
@@ -1949,22 +1917,35 @@ var movelist_MoveList = function (_Component) {
 		}, _this.onSelect = function (_ref) {
 			var move = _ref.move,
 			    fast = _ref.fast;
+			var _this$props = _this.props,
+			    onMoveSelect = _this$props.onMoveSelect,
+			    onMoveUnselect = _this$props.onMoveUnselect,
+			    moveName = move.uniqueId;
+
 
 			if (fast) {
-				if (move.uniqueId == _this.state.selectedFast) {
+				var selectedFast = _this.state.selectedFast;
+
+				if (move.uniqueId == selectedFast) {
+					onMoveUnselect(moveName);
 					_this.setState({ selectedFast: undefined });
 				} else {
-					_this.setState({ selectedFast: move.uniqueId });
+					onMoveSelect(moveName);
+					selectedFast && onMoveUnselect(selectedFast);
+					_this.setState({ selectedFast: moveName });
 				}
 			} else {
 				var charged = _this.state.selectedCharge;
-				var i = charged.indexOf(move.uniqueId);
+				var i = charged.indexOf(moveName);
 				if (i !== -1) {
+					onMoveUnselect(moveName);
 					charged.splice(i, 1);
 				} else {
-					charged.push(move.uniqueId);
+					charged.push(moveName);
+					onMoveSelect(moveName);
 					if (charged.length > 2) {
-						charged.shift();
+						var unselected = charged.shift();
+						onMoveUnselect(unselected);
 					}
 				}
 				_this.setState({ selectedCharge: charged });
@@ -1979,7 +1960,8 @@ var movelist_MoveList = function (_Component) {
 		    quickMoves = _ref2.quickMoves,
 		    chargeMoves = _ref2.chargeMoves,
 		    _ref2$legacyMoves = _ref2.legacyMoves,
-		    legacyMoves = _ref2$legacyMoves === undefined ? {} : _ref2$legacyMoves;
+		    legacyMoves = _ref2$legacyMoves === undefined ? {} : _ref2$legacyMoves,
+		    onMoveSelect = _ref2.onMoveSelect;
 		var selectedFast = _ref3.selectedFast,
 		    selectedCharge = _ref3.selectedCharge;
 		var legacyCharge = legacyMoves.charge,
@@ -1993,7 +1975,7 @@ var movelist_MoveList = function (_Component) {
 		return Object(preact_min["h"])(
 			'div',
 			{ 'class': 'moves' },
-			movelist__ref4,
+			_ref4,
 			quickMoves && Object(preact_min["h"])(
 				'div',
 				{ 'class': 'quick' },
@@ -2001,7 +1983,7 @@ var movelist_MoveList = function (_Component) {
 				quickMoves.map(function (move) {
 					return Object(preact_min["h"])(components_moves, { quick: true,
 						move: list[move],
-						onSelect: _this2.onSelect,
+						onSelect: onMoveSelect && _this2.onSelect,
 						selected: selectedFast && move === selectedFast,
 						legacy: legacyQuick && legacyQuick.indexOf(move) !== -1
 					});
@@ -2015,7 +1997,7 @@ var movelist_MoveList = function (_Component) {
 				chargeMoves.map(function (move) {
 					return Object(preact_min["h"])(components_moves, { charge: true,
 						move: list[move],
-						onSelect: _this2.onSelect,
+						onSelect: onMoveSelect && _this2.onSelect,
 						selected: selectedCharge.indexOf(move) !== -1,
 						legacy: legacyCharge && legacyCharge.indexOf(move) !== -1,
 						fastEnergy: fastMove && fastMove.energyDelta
@@ -2147,7 +2129,9 @@ var pokemon_Pokemon = function Pokemon(_ref) {
 	    legacyMoves = _ref.legacyMoves,
 	    alolan = _ref.alolan,
 	    onChoose = _ref.onChoose,
-	    chooseIcon = _ref.chooseIcon;
+	    chooseIcon = _ref.chooseIcon,
+	    onMoveSelect = _ref.onMoveSelect,
+	    onMoveUnselect = _ref.onMoveUnselect;
 	return Object(preact_min["h"])(
 		Card_default.a,
 		{ 'class': pokemon_style_default.a.card },
@@ -2169,7 +2153,7 @@ var pokemon_Pokemon = function Pokemon(_ref) {
 			)
 		),
 		Object(preact_min["h"])(components_stats, { stats: stats }),
-		Object(preact_min["h"])(movelist, { quickMoves: quickMoves, chargeMoves: chargeMoves, legacyMoves: legacyMoves, list: moveList }),
+		Object(preact_min["h"])(movelist, { quickMoves: quickMoves, chargeMoves: chargeMoves, legacyMoves: legacyMoves, list: moveList, onMoveSelect: onMoveSelect, onMoveUnselect: onMoveUnselect }),
 		Object(preact_min["h"])(
 			Card_default.a.Actions,
 			null,
@@ -2194,6 +2178,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 function pokemonlist__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function pokemonlist__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -2217,8 +2203,7 @@ var pokemonlist_PokemonList = function (_Component) {
 	PokemonList.prototype.render = function render(_ref, _) {
 		var pokemon = _ref.pokemon,
 		    moves = _ref.moves,
-		    onChoose = _ref.onChoose,
-		    chooseIcon = _ref.chooseIcon;
+		    rest = _objectWithoutProperties(_ref, ['pokemon', 'moves']);
 
 		var list = [];
 		for (var id in pokemon) {
@@ -2241,10 +2226,8 @@ var pokemonlist_PokemonList = function (_Component) {
 						Object(preact_min["h"])(components_pokemon, _extends({
 							id: p.pokemonId,
 							moveList: moves,
-							chargeMoves: p.cinematicMoves,
-							onChoose: onChoose,
-							chooseIcon: chooseIcon
-						}, p))
+							chargeMoves: p.cinematicMoves
+						}, p, rest))
 					);
 				})
 			)
@@ -2312,10 +2295,22 @@ function effectivenessmatrix__inherits(subClass, superClass) { if (typeof superC
 
 
 
-var effectivenessmatrix__ref3 = Object(preact_min["h"])(
+var effectivenessmatrix__ref4 = Object(preact_min["h"])(
 	'h2',
 	null,
 	'Effectiveness'
+);
+
+var effectivenessmatrix__ref5 = Object(preact_min["h"])(
+	'h3',
+	null,
+	'Defense'
+);
+
+var effectivenessmatrix__ref6 = Object(preact_min["h"])(
+	'h3',
+	null,
+	'Attack'
 );
 
 var effectivenessmatrix_EffectivenessMatrix = function (_Component) {
@@ -2349,14 +2344,13 @@ var effectivenessmatrix_EffectivenessMatrix = function (_Component) {
 			POKEMON_TYPE_DRAGON: 15,
 			POKEMON_TYPE_DARK: 16,
 			POKEMON_TYPE_FAIRY: 17
-		}, _this.state = {
-			effectiveness: {}
 		}, _temp), effectivenessmatrix__possibleConstructorReturn(_this, _ret);
 	}
 
 	EffectivenessMatrix.prototype.render = function render(_ref) {
 		var pokemon = _ref.pokemon,
-		    effectiveness = _ref.effectiveness;
+		    effectiveness = _ref.effectiveness,
+		    selectedMoves = _ref.selectedMoves;
 
 		var defender = {
 			POKEMON_TYPE_NORMAL: [],
@@ -2378,10 +2372,11 @@ var effectivenessmatrix_EffectivenessMatrix = function (_Component) {
 			POKEMON_TYPE_STEEL: [],
 			POKEMON_TYPE_FAIRY: []
 		};
+		var attacker = JSON.parse(JSON.stringify(defender));
 
 		for (var name in pokemon) {
 			var p = pokemon[name];
-			for (var attacker in effectiveness) {
+			for (var _attacker in effectiveness) {
 				var e = 1;
 				for (var _iterator = p.types, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
 					var _ref2;
@@ -2398,19 +2393,39 @@ var effectivenessmatrix_EffectivenessMatrix = function (_Component) {
 					var type = _ref2;
 
 					if (type == undefined) continue;
-					e *= effectiveness[attacker].attackScalar[this.mapped[type]];
+					e *= effectiveness[_attacker].attackScalar[this.mapped[type]];
 				}
-				defender[attacker].push(e);
+				defender[_attacker].push(e);
+			}
+		}
+
+		for (var _iterator2 = selectedMoves, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+			var _ref3;
+
+			if (_isArray2) {
+				if (_i2 >= _iterator2.length) break;
+				_ref3 = _iterator2[_i2++];
+			} else {
+				_i2 = _iterator2.next();
+				if (_i2.done) break;
+				_ref3 = _i2.value;
+			}
+
+			var move = _ref3;
+
+			for (var _defender in effectiveness) {
+				attacker[_defender].push(effectiveness[move.type].attackScalar[this.mapped[_defender]]);
 			}
 		}
 
 		return Object(preact_min["h"])(
 			'div',
 			{ 'class': 'effectiveness' },
-			effectivenessmatrix__ref3,
+			effectivenessmatrix__ref4,
 			Object(preact_min["h"])(
 				LayoutGrid_default.a,
 				null,
+				effectivenessmatrix__ref5,
 				Object(preact_min["h"])(
 					LayoutGrid_default.a.Inner,
 					null,
@@ -2420,6 +2435,19 @@ var effectivenessmatrix_EffectivenessMatrix = function (_Component) {
 							{ desktopCols: '4', tabletCols: '4', phoneCols: '1', className: effectivenessmatrix_style_default.a.effectiveness },
 							Object(preact_min["h"])(typeicon, { type: type }),
 							Object(preact_min["h"])(components_effectiveness, { values: defender[type] })
+						);
+					})
+				),
+				effectivenessmatrix__ref6,
+				Object(preact_min["h"])(
+					LayoutGrid_default.a.Inner,
+					null,
+					this.order.map(function (type) {
+						return Object(preact_min["h"])(
+							LayoutGrid_default.a.Cell,
+							{ desktopCols: '4', tabletCols: '4', phoneCols: '1', className: effectivenessmatrix_style_default.a.effectiveness },
+							Object(preact_min["h"])(typeicon, { type: type }),
+							Object(preact_min["h"])(components_effectiveness, { values: attacker[type] })
 						);
 					})
 				)
@@ -2473,7 +2501,8 @@ var pokedex_Pokedex = function (_Component) {
 		return _ret = (_temp = (_this = pokedex__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
 			loading: true,
 			filter: "",
-			selected: {}
+			selected: {},
+			selectedMoves: []
 		}, _this.checkForUpdate = function (version) {
 			_this.setState({ version: version });
 
@@ -2843,6 +2872,21 @@ var pokedex_Pokedex = function (_Component) {
 			localStorage.setItem('selected', JSON.stringify(selected));
 			_this.setState({ selected: selected });
 			_this.calculateFiltered();
+		}, _this.moveSelected = function (move) {
+			var selectedMoves = _this.state.selectedMoves;
+
+			selectedMoves.push(move);
+			_this.setState({ selectedMoves: selectedMoves });
+		}, _this.moveUnselected = function (move) {
+			var selectedMoves = _this.state.selectedMoves;
+
+			var i = selectedMoves.indexOf(move);
+			if (i === -1) {
+				console.error("can't remove " + move + " from selected list; it isn't present");
+				return;
+			}
+			selectedMoves.splice(i, 1);
+			_this.setState({ selectedMoves: selectedMoves });
 		}, _temp), pokedex__possibleConstructorReturn(_this, _ret);
 	}
 
@@ -2861,7 +2905,8 @@ var pokedex_Pokedex = function (_Component) {
 		    effectiveness = _ref5.effectiveness,
 		    filtered = _ref5.filtered,
 		    selected = _ref5.selected,
-		    loading = _ref5.loading;
+		    loading = _ref5.loading,
+		    selectedMoves = _ref5.selectedMoves;
 
 		return Object(preact_min["h"])(
 			'div',
@@ -2875,12 +2920,14 @@ var pokedex_Pokedex = function (_Component) {
 					Object(preact_min["h"])(
 						LayoutGrid_default.a.Cell,
 						{ desktopCols: '3', tabletCols: '2', phoneCols: '4' },
-						Object(preact_min["h"])(effectivenessmatrix, { pokemon: selected, effectiveness: effectiveness })
+						Object(preact_min["h"])(effectivenessmatrix, { pokemon: selected, effectiveness: effectiveness, selectedMoves: selectedMoves.map(function (move) {
+								return moves[move];
+							}) })
 					),
 					Object(preact_min["h"])(
 						LayoutGrid_default.a.Cell,
 						{ desktopCols: '9', tabletCols: '6', phoneCols: '4' },
-						Object.keys(selected).length > 0 && Object(preact_min["h"])(pokemonlist, { pokemon: selected, moves: moves, onChoose: this.unhoist, chooseIcon: 'remove_circle' }),
+						Object.keys(selected).length > 0 && Object(preact_min["h"])(pokemonlist, { pokemon: selected, moves: moves, onChoose: this.unhoist, chooseIcon: 'remove_circle', onMoveSelect: this.moveSelected, onMoveUnselect: this.moveUnselected }),
 						Object(preact_min["h"])(filters, { filterPokemon: this.filterPokemon }),
 						loading && pokedex__ref6 || Object(preact_min["h"])(pokemonlist, { pokemon: filtered, moves: moves, onChoose: this.hoist, chooseIcon: 'add_circle' })
 					)
