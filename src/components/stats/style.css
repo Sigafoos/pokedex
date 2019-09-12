@@ -4,5 +4,5 @@
 }
 
 .statsgrid {
-	grid-gap: 0;
+	grid-gap: 0 !important;
 }
