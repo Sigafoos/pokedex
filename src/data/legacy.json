@@ -141,7 +141,7 @@
 		"charge": ["RETURN", "FRUSTRATION"]
 	},
 	"MEWTWO": {
-		"charge": ["SHADOW_BALL", "HYPER_BEAM"]
+		"charge": ["SHADOW_BALL", "HYPER_BEAM", "PSYSTRIKE"]
 	},
 	"MEGANIUM": {
 		"charge": ["FRENZY_PLANT"]
