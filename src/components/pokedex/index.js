@@ -359,8 +359,7 @@ class Pokedex extends Component {
 	}
 
 	render(_, { moves, effectiveness, filtered, selected, loading, selectedMoves }) {
-		return (
-			<div>
+		return loading && <Circular /> || (
 				<LayoutGrid>
 					<LayoutGrid.Inner>
 						<LayoutGrid.Cell desktopCols="3" tabletCols="2" phoneCols="4">
@@ -370,12 +369,10 @@ class Pokedex extends Component {
 						<LayoutGrid.Cell desktopCols="9" tabletCols="6" phoneCols="4">
 							{Object.keys(selected).length > 0 && (<PokemonList pokemon={selected} moves={moves} onChoose={this.unhoist} chooseIcon="remove_circle" onMoveSelect={this.moveSelected} onMoveUnselect={this.moveUnselected}  />)}
 							<Filters filterPokemon={this.filterPokemon} />
-							{loading && (<Circular />)
-								|| (<PokemonList pokemon={filtered} moves={moves} onChoose={this.hoist} chooseIcon="add_circle" />)}
+							<PokemonList pokemon={filtered} moves={moves} onChoose={this.hoist} chooseIcon="add_circle" />
 						</LayoutGrid.Cell>
 					</LayoutGrid.Inner>
 				</LayoutGrid>
-			</div>
 		);
 	}
 }
