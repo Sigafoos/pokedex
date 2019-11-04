@@ -25,15 +25,25 @@
 			<md-table>
 				<md-table-row>
 					<md-table-head>move</md-table-head>
-					<md-table-head>type</md-table-head>
 					<md-table-head>DPT</md-table-head>
 					<md-table-head>EPT</md-table-head>
 				</md-table-row>
 
-				<Move v-for="move of fastMoves" :key="move.uniqueId" :move="move" />
+				<Move v-for="move of fastMoves" :key="p.pokemonId + move.uniqueId" :move="move" fast />
 			</md-table>
 
 			<md-subheader>Charge</md-subheader>
+			<md-table>
+			<md-table-row>
+			<md-table-head>move</md-table-head>
+			<md-table-head>damage</md-table-head>
+			<md-table-head>energy</md-table-head>
+			<md-table-head>DPE</md-table-head>
+			</md-table-row>
+
+			<Move v-for="move of chargeMoves" :key="p.pokemonId + move.uniqueId" :move="move" charge />
+			</md-table>
+
 		</md-card-content>
 
 		<md-card-actions>
@@ -86,7 +96,16 @@
 				for (let move of this.p.quickMoves) {
 					moves.push(this.moves[move]);
 				}
-				if (this.p.dexNumber == 1) console.log(moves);
+				return moves;
+			},
+
+			chargeMoves: function() {
+				if (!this.p.cinematicMoves) return [];
+
+				let moves = [];
+				for (let move of this.p.cinematicMoves) {
+					moves.push(this.moves[move]);
+				}
 				return moves;
 			}
 		}
