@@ -1,0 +1,103 @@
+<template>
+	<span v-if="type" :class="type">{{ name }}</span>
+</template>
+
+<script>
+	export default {
+		name: 'Type',
+
+		props: ['type'],
+
+		computed: {
+			name: function() {
+				return this.type.substr(13);
+			}
+		}
+	}
+</script>
+
+<style scoped>
+	span {
+		border-radius: 2px;
+		color: #fff;
+		display: inline-block;
+		font-size: .85em;
+		line-height: 1.65em;
+		margin-right: .2em;
+		text-align: center;
+		text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+		width: 5.5em;
+	}
+
+	.POKEMON_TYPE_NORMAL {
+		background-color: #aa9;
+	}
+
+	.POKEMON_TYPE_FIRE {
+		background-color: #f42;
+	}
+
+	.POKEMON_TYPE_WATER {
+		background-color: #39f;
+	}
+
+	.POKEMON_TYPE_ELECTRIC {
+		background-color: #fc3;
+	}
+
+	.POKEMON_TYPE_GRASS {
+		background-color: #7c5;
+	}
+
+	.POKEMON_TYPE_ICE {
+		background-color: #6cf;
+	}
+
+	.POKEMON_TYPE_FIGHTING {
+		background-color: #b54;
+	}
+
+	.POKEMON_TYPE_POISON {
+		background-color: #a59;
+	}
+
+	.POKEMON_TYPE_GROUND {
+		background-color: #db5;
+	}
+
+	.POKEMON_TYPE_FLYING {
+		background-color: #89f;
+	}
+
+	.POKEMON_TYPE_PSYCHIC {
+		background-color: #f59;
+	}
+
+	.POKEMON_TYPE_BUG {
+		background-color: #ab2;
+	}
+
+	.POKEMON_TYPE_ROCK {
+		background-color: #ba6;
+	}
+
+	.POKEMON_TYPE_GHOST {
+		background-color: #66b;
+	}
+
+	.POKEMON_TYPE_DRAGON {
+		background-color: #76e;
+	}
+
+	.POKEMON_TYPE_DARK {
+		background-color: #754;
+	}
+
+	.POKEMON_TYPE_STEEL {
+		background-color: #aab;
+	}
+
+	.POKEMON_TYPE_FAIRY {
+		background-color: #e9e;
+	}
+</style>
